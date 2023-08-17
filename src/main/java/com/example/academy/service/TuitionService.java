@@ -1,14 +1,14 @@
 package com.example.academy.service;
 
-import com.example.academy.dto.User;
+import com.example.academy.dto.Tuition;
 import com.example.academy.frame.MyService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements MyService<Integer, User> {
+public class TuitionService implements MyService<Integer, Tuition> {
 
     @Override
-    public void register(User user) throws Exception {
+    public void register(Tuition tuition) throws Exception {
 
     }
 
@@ -18,12 +18,12 @@ public class UserService implements MyService<Integer, User> {
     }
 
     @Override
-    public void modify(User user) throws Exception {
+    public void modify(Tuition tuition) throws Exception {
 
     }
 
     @Override
-    public User get(Integer integer) throws Exception {
+    public Tuition get(Integer integer) throws Exception {
         return null;
     }
 }
