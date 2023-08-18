@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Map {
+public class AcademyMap {
     private int mapId;
     private int branchId;
     private String mapUrl;
