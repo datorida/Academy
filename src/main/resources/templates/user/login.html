@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{user/fragments :: head}">
+    <title>로그인</title>
+</head>
+
+<body>
+<header id="header" class="fixed-top d-flex align-items-center  header-transparent" th:replace="~{user/fragments :: copy}"></header>
+<script>
+    $(document).ready(function(){
+        $('input[name="id"]').keyup(function(){
+            var id = $(this).val();
+        });
+        $('#login_form > a').click(function (){
+
+        });
+    });
+</script>
+<section id="about" class="about" style="margin-top:100px;">
+    <div class="container">
+
+        <div class="section-title" data-aos="zoom-out">
+            <h2>Login</h2>
+        </div>
+
+        <form id="login_form">
+            ID<input type="text" name="id"><span id="id_span"></span><br>
+            PWD<input type="password" name="pwd"><span id="pwd_span"></span><br>
+            <a href="#">LOGIN</a>
+        </form>
+
+    </div>
+</section><!-- End About Section -->
+
+<footer th:replace="~{user/fragments :: footer-script}"></footer>
+</body>
+</html>
