@@ -16,4 +16,8 @@ public interface UserMapper extends MyMapper<Integer, User> {
     void update(User user) throws Exception;
     User select(Integer integer) throws Exception;
     List<User> selectAll() throws Exception;
+
+    Integer checkOverlapId(String id) throws Exception;
+
+    User loginCheck(User user) throws Exception;
 }

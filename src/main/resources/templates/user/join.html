@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{user/fragments :: head}">
+    <title>회원가입</title>
+</head>
+
+<body>
+<header id="header" class="fixed-top d-flex align-items-center  header-transparent"
+        th:replace="~{user/fragments :: copy}"></header>
+
+<section id="about" class="about" style="margin-top:100px;">
+    <div class="container">
+
+        <div class="section-title" data-aos="zoom-out">
+            <h2>join</h2>
+        </div>
+        <div class="mt-5">
+            <h2 class="mb-4">회원가입</h2>
+            <form id="register_form" th:action="@{/register}" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div id="resultArea" class="mt-4"></div>
+                        <label for="userId" class="form-label">아이디</label>
+                        <div class="d-flex" style="height: 38px; white-space: nowrap;"> <!-- 입력란과 버튼을 가로로 정렬 -->
+                            <input type="text" class="form-control me-2" id="userId" name="userId" />
+                            <button type="button" class="btn btn-primary" onclick="checkDuplicate()">아이디 중복</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">이메일</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">휴대폰</label>
+                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber">
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">주소</label>
+                    <input type="text" class="form-control" id="address" name="address">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">패스워드</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">패스워드 확인</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="register()">가입하기</button>
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+<footer th:replace="~{user/fragments :: footer-script}"></footer>
+<script>
+    function validationCheck() {
+        if ($("#userId").val() === "") {
+            alert("중복확인을 해주시기 바랍니다.");
+            return false;
+        }
+        if ($("#email").val() === "") {
+            alert("이메일 값을 적어주세요.");
+            return false;
+        }
+        if ($("#phoneNumber").val() === "") {
+            alert("휴대폰을 적어주세요.");
+            return false;
+        }
+        if ($("#password").val() === "") {
+            alert("패스워드를 적어주세요.");
+            return false;
+        }
+        if ($("#password").val() !== $("#confirm_password").val()) {
+            alert("패스워드와 패스워드 확인이 동일하지 않습니다.");
+            return false;
+        }
+        return true;
+    }
+
+    function register() {
+        if (validationCheck() === true) {
+            $("#register_form").submit();
+        }
+    }
+
+    function checkDuplicate() {
+        var username = $("#userId").val();
+        var isDuplicate = false;
+        $.ajax({
+            url: '[[@{/checkId}]]',
+            data: { username: username }, // 데이터를 객체로 감싸서 전송
+            success: function (result) {
+                if (result === true) isDuplicate = true;
+            },
+            error: function () {
+                alert("서버 요청 중 오류가 발생했습니다.");
+            }
+        });
+        var resultArea = $("#resultArea");
+        if (isDuplicate) {
+            resultArea.html('<div class="alert alert-danger" role="alert">중복된 아이디가 있습니다.</div>');
+        } else {
+            resultArea.html('<div class="alert alert-success" role="alert">중복된 아이디가 없습니다.</div>');
+        }
+    }
+</script>
+</body>
+</html>

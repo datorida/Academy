@@ -8,14 +8,9 @@
 <body>
 <header id="header" class="fixed-top d-flex align-items-center  header-transparent" th:replace="~{user/fragments :: copy}"></header>
 <script>
-    $(document).ready(function(){
-        $('input[name="id"]').keyup(function(){
-            var id = $(this).val();
-        });
-        $('#login_form > a').click(function (){
-
-        });
-    });
+    function login(){
+        $("#login_form").submit();
+    }
 </script>
 <section id="about" class="about" style="margin-top:100px;">
     <div class="container">
@@ -24,14 +19,25 @@
             <h2>Login</h2>
         </div>
 
-        <form id="login_form">
-            ID<input type="text" name="id"><span id="id_span"></span><br>
-            PWD<input type="password" name="pwd"><span id="pwd_span"></span><br>
-            <a href="#">LOGIN</a>
+
+        <form id="login_form" th:action="@{/loginOk}" method="post">
+            <div th:if="${msg}" class="alert alert-danger">
+                <span th:text="${msg}"></span>
+            </div>
+            <div class="mb-3">
+                <label for="userId" class="form-label">아이디</label>
+                <input type="text" class="form-control" id="userId" name="userId" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">패스워드</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
         </form>
 
+        <a href="javascript:login();" style="color: #1a1d20">로그인</a>
+        <a th:href="@{/join}" style="color: #1a1d20">회원가입</a>
     </div>
-</section><!-- End About Section -->
+</section>
 
 <footer th:replace="~{user/fragments :: footer-script}"></footer>
 </body>
