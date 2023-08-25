@@ -39,11 +39,11 @@
   <section id="hero" class="d-flex flex-column justify-content-end align-items-center">
     <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
 
-    <div th:each="banner : ${banner}"></div>
       <!-- Slide -->
-      <div class="carousel-item active">
+      <div class="carousel-item active"
+        th:each="banner : ${banners}">
         <div class="carousel-container">
-          <img th:src="{banner.bannerUrl}">
+          <img th:src="${banner.bannerUrl}">
         </div>
       </div>
     </div>

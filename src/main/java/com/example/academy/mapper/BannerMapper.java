@@ -14,5 +14,5 @@ public interface BannerMapper extends MyMapper<Integer, Banner> {
     void delete(Integer integer) throws Exception;
     void update(Banner banner) throws Exception;
     Banner select(Integer integer) throws Exception;
-    List<Banner> selectAll() throws Exception;
+
 }

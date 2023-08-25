@@ -3,6 +3,8 @@ package com.example.academy.service;
 import com.example.academy.dto.Banner;
 import com.example.academy.dto.Banner;
 import com.example.academy.frame.MyService;
+import com.example.academy.mapper.BannerMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
 @Service
 public class BannerService implements MyService<Integer, Banner> {
 
+    @Autowired
+    BannerMapper bannerMapper;
     @Override
     public void register(Banner banner) throws Exception {
 
@@ -32,7 +36,7 @@ public class BannerService implements MyService<Integer, Banner> {
 
     @Override
     public List<Banner> get() throws Exception {
-        return null;
+        return bannerMapper.selectAll();
     }
 
 

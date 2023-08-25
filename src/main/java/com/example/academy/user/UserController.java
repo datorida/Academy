@@ -12,11 +12,7 @@ public class UserController {
     @Autowired
     HttpSession session;
 
-    @RequestMapping(value = {"/", "/index"})
-    public String index (Model model){
 
-        return "user/index";
-    }
 
 
     @RequestMapping("/login")

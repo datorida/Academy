@@ -15,11 +15,12 @@ public class MainController {
 
     @Autowired
     BannerService bannerService;
-    @GetMapping("/index")
+    @GetMapping(value = {"/", "/index"})
     public String index(Model model) throws Exception {
-        List<Banner> banner = bannerService.get();
-
-        return "user/about/index";
+        List<Banner> banners = bannerService.get();
+        model.addAttribute("banners", banners);
+        return "user/index";
     }
+
 
 }
