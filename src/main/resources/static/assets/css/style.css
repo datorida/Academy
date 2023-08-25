@@ -350,6 +350,7 @@ h6 {
   padding: 0;
 }
 
+
 #hero .carousel-container {
   display: flex;
   justify-content: center;
@@ -410,6 +411,8 @@ h6 {
   color: #fff;
   text-decoration: none;
 }
+
+
 
 @media (min-width: 1024px) {
   #hero p {

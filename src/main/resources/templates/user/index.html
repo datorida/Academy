@@ -39,13 +39,15 @@
   <section id="hero" class="d-flex flex-column justify-content-end align-items-center">
     <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
 
+      <div th:each="banner, iterStat : ${banners}">
       <!-- Slide -->
-      <div class="carousel-item active"
-        th:each="banner : ${banners}">
+      <div class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
         <div class="carousel-container">
-          <img th:src="${banner.bannerUrl}">
+          <img th:src="${banner.bannerUrl}" class="slide-img">
         </div>
       </div>
+    </div>
+
       <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
         <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
       </a>
