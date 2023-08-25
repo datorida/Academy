@@ -119,7 +119,7 @@ h6 {
 # Navigation Menu
 --------------------------------------------------------------*/
 /**
-* Desktop Navigation 
+* Desktop Navigation
 */
 .navbar {
   padding: 0;
@@ -232,7 +232,7 @@ h6 {
 }
 
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .mobile-nav-toggle {
   color: #fff;
@@ -347,26 +347,6 @@ h6 {
   position: relative;
   background: linear-gradient(0deg, rgb(42, 44, 57) 0%, rgb(51, 54, 74) 100%);
   padding: 0;
-  height: 100vh;
-}
-
-#hero .carousel-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  position: relative;
-  height: 100%;
-  padding-top: 60px;
-}
-
-#hero .carousel-container img {
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
-  width: 100%;
-
 }
 
 #hero .carousel-container {
@@ -380,12 +360,19 @@ h6 {
   padding-top: 60px;
 }
 
-#hero .carousel-container img {
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
+#hero h2 {
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 48px;
+  font-weight: 700;
 }
 
+#hero p {
+  width: 80%;
+  animation-delay: 0.4s;
+  margin: 0 auto 30px auto;
+  color: #fff;
+}
 
 #hero .carousel-control-prev,
 #hero .carousel-control-next {
@@ -1189,7 +1176,6 @@ section {
 --------------------------------------------------------------*/
 .faq {
   padding: 60px 0;
-  margin-top : 100px;
 }
 
 .faq .faq-list {
