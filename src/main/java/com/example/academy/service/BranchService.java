@@ -5,6 +5,8 @@ import com.example.academy.dto.User;
 import com.example.academy.frame.MyService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BranchService implements MyService<Integer, Branch> {
 
@@ -27,4 +29,10 @@ public class BranchService implements MyService<Integer, Branch> {
     public Branch get(Integer integer) throws Exception {
         return null;
     }
+
+    @Override
+    public List<Branch> get() throws Exception {
+        return null;
+    }
+
 }

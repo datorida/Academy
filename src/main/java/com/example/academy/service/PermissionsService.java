@@ -4,6 +4,8 @@ import com.example.academy.dto.Permissions;
 import com.example.academy.frame.MyService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PermissionsService implements MyService<Integer, Permissions> {
 
@@ -26,4 +28,11 @@ public class PermissionsService implements MyService<Integer, Permissions> {
     public Permissions get(Integer integer) throws Exception {
         return null;
     }
+
+    @Override
+    public List<Permissions> get() throws Exception {
+        return null;
+    }
+
+
 }

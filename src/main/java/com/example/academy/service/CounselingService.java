@@ -4,6 +4,8 @@ import com.example.academy.dto.Counseling;
 import com.example.academy.frame.MyService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CounselingService implements MyService<Integer, Counseling> {
 
@@ -26,4 +28,11 @@ public class CounselingService implements MyService<Integer, Counseling> {
     public Counseling get(Integer integer) throws Exception {
         return null;
     }
+
+    @Override
+    public List<Counseling> get() throws Exception {
+        return null;
+    }
+
+
 }

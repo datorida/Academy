@@ -1,16 +1,17 @@
 package com.example.academy.service;
 
-import com.example.academy.dto.User;
+import com.example.academy.dto.Banner;
+import com.example.academy.dto.Banner;
 import com.example.academy.frame.MyService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService implements MyService<Integer, User> {
+public class BannerService implements MyService<Integer, Banner> {
 
     @Override
-    public void register(User user) throws Exception {
+    public void register(Banner banner) throws Exception {
 
     }
 
@@ -20,17 +21,17 @@ public class UserService implements MyService<Integer, User> {
     }
 
     @Override
-    public void modify(User user) throws Exception {
+    public void modify(Banner banner) throws Exception {
 
     }
 
     @Override
-    public User get(Integer integer) throws Exception {
+    public Banner get(Integer integer) throws Exception {
         return null;
     }
 
     @Override
-    public List<User> get() throws Exception {
+    public List<Banner> get() throws Exception {
         return null;
     }
 

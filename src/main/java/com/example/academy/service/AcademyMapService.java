@@ -4,6 +4,8 @@ import com.example.academy.dto.AcademyMap;
 import com.example.academy.frame.MyService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AcademyMapService implements MyService<Integer, AcademyMap> {
 
@@ -26,4 +28,10 @@ public class AcademyMapService implements MyService<Integer, AcademyMap> {
     public AcademyMap get(Integer integer) throws Exception {
         return null;
     }
+
+    @Override
+    public List<AcademyMap> get() throws Exception {
+        return null;
+    }
+
 }
