@@ -2,97 +2,70 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{user/fragments :: head}">
-   <title>강사소개</title>
+    <title>강사소개</title>
 </head>
 <body>
 <header id="header" class="fixed-top d-flex align-items-center  header-transparent" th:replace="~{user/fragments :: copy}"></header>
-
-<section id="team" class="team" style=" margin-top: 100px;">
+<section id="team" class="team" style="margin-top: 100px;">
     <div class="container">
-
         <div class="section-title" data-aos="zoom-out">
             <h2>one's instructor</h2>
             <p>Introduction of the teacher introduction</p>
         </div>
-
         <div class="row">
-
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                <div class="member" data-aos="fade-up">
+            <div th:each="teacher, iterStat : ${teachers}" class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" th:data-aos-delay="${(iterStat.index) * 100}">
+                <div class="member">
                     <div class="member-img">
-                        <img th:src="@{/assets/img/team/team-1.jpg}" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
+                        <img th:src="${teacher.teacherImg}" class="img-fluid" alt="">
                     </div>
                     <div class="member-info">
-                        <h4>Walter White</h4>
-                        <span>Chief Executive Officer</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                <div class="member" data-aos="fade-up" data-aos-delay="100">
-                    <div class="member-img">
-                        <img th:src="@{/assets/img/team/team-2.jpg}" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
+                        <h4 th:text="${teacher.teachersName}"></h4>
+                        <span th:text="${teacher.position}"></span>
+                        <!-- 데이터 토글 버튼 -->
+                        <button class="show-details-button" th:data-teacher-id="${teacher.teachersId}">
+                            Career
+                        </button>
+                        <div class="teacher-details" th:id="${teacher.teachersId}" style="display: none;">
+                            <p th:text="${teacher.introduce}"></p>
                         </div>
+
                     </div>
-                    <div class="member-info">
-                        <h4>Sarah Jhonson</h4>
-                        <span>Product Manager</span>
-                    </div>
+
+
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                <div class="member" data-aos="fade-up" data-aos-delay="200">
-                    <div class="member-img">
-                        <img th:src="@{/assets/img/team/team-3.jpg}" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h4>William Anderson</h4>
-                        <span>CTO</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                <div class="member" data-aos="fade-up" data-aos-delay="300">
-                    <div class="member-img">
-                        <img th:src="@{/assets/img/team/team-4.jpg}" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h4>Amanda Jepson</h4>
-                        <span>Accountant</span>
-                    </div>
-                </div>
-            </div>
-
         </div>
-
     </div>
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".show-details-button");
+
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const teacherId = this.getAttribute("data-teacher-id");
+                const teacherContainer = document.getElementById(teacherId);
+
+                // 현재 클릭된 버튼과 관련된 선생님 정보 컨테이너를 토글
+                if (teacherContainer.style.display === "none" || teacherContainer.style.display === "") {
+                    teacherContainer.style.display = "block";
+                } else {
+                    teacherContainer.style.display = "none";
+                }
+
+                // 다른 버튼들에 대한 선생님 정보 컨테이너를 닫음
+                buttons.forEach(function (otherButton) {
+                    if (otherButton !== button) {
+                        const otherTeacherId = otherButton.getAttribute("data-teacher-id");
+                        const otherTeacherContainer = document.getElementById(otherTeacherId);
+                        otherTeacherContainer.style.display = "none";
+                    }
+                });
+            });
+        });
+    });
+</script>
 
 <footer th:replace="~{user/fragments :: footer-script}"></footer>
 
