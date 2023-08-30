@@ -18,124 +18,134 @@
                 <h2>edit</h2>
 
             </div>
-            <div class="layout-sidebar">
-                <ul>
-                    <li><a href="#">내정보 수정</a></li>
-                    <li><a href="#">수강목록</a></li>
-                    <li><a href="#">수강료</a></li>
-                </ul>
-            </div>
-            <div class="mt-5">
-                <h2 class="mb-4">내정보 수정</h2>
-                <form id="update_form" th:action="@{/updateInfo}" method="post">
-                    <input type="hidden" name="userCode" id="userCode" th:value="${user.userCode}"/>
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <label for="userId" class="form-label required-label">아이디</label>
-                            <div class="d-flex">
-                                <input type="text" class="form-control me-2" id="userId" name="userId"
-                                       th:value="${user.userId}"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="userName" class="form-label required-label">이름</label>
-                        <span id="userNameError" class="text-danger"></span>
-                        <input type="text" class="form-control" id="userName" name="userName"
-                               th:value="${user.userName}"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label required-label">이메일</label>
-                        <span id="emailError" class="text-danger"></span>
-                        <input type="email" class="form-control" id="email" name="email" th:value="${user.email}"
-                        />
-                    </div>
-                    <div class="mb-3">
-                        <label for="phoneNumber" class="form-label required-label">휴대폰</label>
-                        <span id="phoneNumberError" class="text-danger"></span>
-                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
-                               th:value="${user.phoneNumber}"/>
-                    </div>
-                    <div class="md-6 mb-4">
-                        <label for="postCode" class="form-label">우편번호</label>
-                        <div class="d-flex" style="height: 38px; white-space: nowrap;">
-                            <input type="text" class="form-control me-2" id="postCode" name="postCode"
-                                   th:value="${user.postCode}"/>
-                            <button id="postBtn" style="display: none" type="button" class="btn btn-primary"
-                                    onclick="execDaumPostcode()">우편번호 찾기
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">주소</label>
-                        <input type="text" class="form-control" id="address" name="address" th:value="${user.address}"
-                        />
-                    </div>
-                    <div class="mb-3">
-                        <label for="detailAddress" class="form-label">상세주소</label>
-                        <input type="text" class="form-control" id="detailAddress" name="detailAddress"
-                               th:value="${user.detailAddress}"/>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-auto">
-                            <button type="button" id="edit_button" class="btn btn-primary">내정보 수정하기</button>
-                            <button type="button" id="save_button" style="display:none" class="btn btn-primary" onclick="register();">저장
-                            </button>
-                        </div>
-                        <div class="col-sm-auto">
-                            <button type="button" id="password_change_button" class="btn btn-primary">패스워드 변경</button>
-                        </div>
-                        <div class="col-sm-auto">
 
-                            <button type="button" id="before_button" style="display:none" class="btn btn-primary">뒤로가기
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <div class="modal fade" id="passwordChangeModal" tabindex="-1"
-                     aria-labelledby="passwordChangeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="passwordChangeModalLabel">패스워드 변경</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="닫기"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3" id="beforePw">
-                                    <label for="oldPassword" class="form-label required-label">기존 패스워드</label>
-                                    <div class="d-flex" style="height: 38px; white-space: nowrap;">
-                                        <span id="oldPasswordError" class="text-danger"></span>
-                                        <input type="password" class="form-control" id="oldPassword"
-                                               name="oldPassword"/>
-                                        <button type="button" class="btn btn-primary" onclick="checkPassword()">확인
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="row" id="check_to_password_modal" style="display: none">
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label required-label">패스워드</label>
-                                        <span id="passwordError" class="text-danger"></span>
-                                        <input type="password" class="form-control" id="password" name="password"
-                                               placeholder="******"/>
-                                    </div>
-                                    <div class="mb-3" id="d_confirm_password">
-                                        <label for="confirm_password" class="form-label required-label">패스워드 확인</label>
-                                        <span id="confirmPasswordError" class="text-danger"></span>
-                                        <input type="password" class="form-control" id="confirm_password"
-                                               name="confirm_password"
-                                               placeholder="******"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button type="button" class="btn btn-primary" id="savePassowrd" style="display: none;" onclick="savePassword()">변경</button>
-                            </div>
-                        </div>
-                    </div>
+            <div class="mypage-container">
+                <div class="layout-sidebar">
+                    <ul>
+                        <li><a href="#">내정보 수정</a></li>
+                        <li><a href="#">수강목록</a></li>
+                        <li><a href="#">수강료</a></li>
+                    </ul>
                 </div>
+                <div class="mt-5">
+                    <h2 class="mb-4">내정보 수정</h2>
+                    <form id="update_form" th:action="@{/updateInfo}" method="post">
+                        <input type="hidden" name="userCode" id="userCode" th:value="${user.userCode}"/>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label for="userId" class="form-label required-label">아이디</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control me-2" id="userId" name="userId"
+                                           th:value="${user.userId}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userName" class="form-label required-label">이름</label>
+                            <span id="userNameError" class="text-danger"></span>
+                            <input type="text" class="form-control" id="userName" name="userName"
+                                   th:value="${user.userName}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label required-label">이메일</label>
+                            <span id="emailError" class="text-danger"></span>
+                            <input type="email" class="form-control" id="email" name="email" th:value="${user.email}"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label required-label">휴대폰</label>
+                            <span id="phoneNumberError" class="text-danger"></span>
+                            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber"
+                                   th:value="${user.phoneNumber}"/>
+                        </div>
+                        <div class="md-6 mb-4">
+                            <label for="postCode" class="form-label">우편번호</label>
+                            <div class="d-flex" style="height: 38px; white-space: nowrap;">
+                                <input type="text" class="form-control me-2" id="postCode" name="postCode"
+                                       th:value="${user.postCode}"/>
+                                <button id="postBtn" style="display: none" type="button" class="btn btn-primary"
+                                        onclick="execDaumPostcode()">우편번호 찾기
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">주소</label>
+                            <input type="text" class="form-control" id="address" name="address"
+                                   th:value="${user.address}"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label for="detailAddress" class="form-label">상세주소</label>
+                            <input type="text" class="form-control" id="detailAddress" name="detailAddress"
+                                   th:value="${user.detailAddress}"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-auto">
+                                <button type="button" id="edit_button" class="btn btn-primary">내정보 수정하기</button>
+                                <button type="button" id="save_button" style="display:none" class="btn btn-primary"
+                                        onclick="register();">저장
+                                </button>
+                            </div>
+                            <div class="col-sm-auto">
+                                <button type="button" id="password_change_button" class="btn btn-primary">패스워드 변경
+                                </button>
+                            </div>
+                            <div class="col-sm-auto">
 
+                                <button type="button" id="before_button" style="display:none" class="btn btn-primary">
+                                    뒤로가기
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal fade" id="passwordChangeModal" tabindex="-1"
+                         aria-labelledby="passwordChangeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="passwordChangeModalLabel">패스워드 변경</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="닫기"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3" id="beforePw">
+                                        <label for="oldPassword" class="form-label required-label">기존 패스워드</label>
+                                        <div class="d-flex" style="height: 38px; white-space: nowrap;">
+                                            <span id="oldPasswordError" class="text-danger"></span>
+                                            <input type="password" class="form-control" id="oldPassword"
+                                                   name="oldPassword"/>
+                                            <button type="button" class="btn btn-primary" onclick="checkPassword()">확인
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="check_to_password_modal" style="display: none">
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label required-label">패스워드</label>
+                                            <span id="passwordError" class="text-danger"></span>
+                                            <input type="password" class="form-control" id="password" name="password"
+                                                   placeholder="******"/>
+                                        </div>
+                                        <div class="mb-3" id="d_confirm_password">
+                                            <label for="confirm_password" class="form-label required-label">패스워드
+                                                확인</label>
+                                            <span id="confirmPasswordError" class="text-danger"></span>
+                                            <input type="password" class="form-control" id="confirm_password"
+                                                   name="confirm_password"
+                                                   placeholder="******"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="button" class="btn btn-primary" id="savePassowrd"
+                                            style="display: none;" onclick="savePassword()">변경
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
         </div>
@@ -156,15 +166,17 @@
     const savePasswordBtn = document.getElementById("savePassowrd");
     const password = document.getElementById("password");
     const confirm_password = document.getElementById("confirm_password");
-    function register(){
-        if(confirm("내정보를 수정하시겠습니까? 수정 시 자동으로 로그아웃이 진행됩니다.")) $("#update_form").submit();
+
+    function register() {
+        if (confirm("내정보를 수정하시겠습니까? 수정 시 자동으로 로그아웃이 진행됩니다.")) $("#update_form").submit();
     }
-    function validationCheck(){
+
+    function validationCheck() {
         if (password.value === "") {
             $("#passwordError").text("패스워드를 입력하세요.");
             password.focus();
             return false;
-        }else if(password.value === oldPassword.value) {
+        } else if (password.value === oldPassword.value) {
             $("#passwordError").text("기존 패스워드로 변경할 순 없습니다.");
             password.focus();
             return false;
@@ -204,7 +216,7 @@
         oldPassword.value = "";
         savePasswordBtn.style.display = "none";
         password.value = "";
-        confirm_password.value="";
+        confirm_password.value = "";
     });
 
 
@@ -219,20 +231,19 @@
     }
 
 
-
     function savePassword() {
-        if(validationCheck()){
+        if (validationCheck()) {
             $.ajax({
                 url: "/updatePassword",
                 method: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({userCode: /*[[${user.userCode}]]*/, password: password.value}), // JSON 형식의 데이터 전송
-                success: function (is_update){
-                    if (is_update){
+                success: function (is_update) {
+                    if (is_update) {
                         alert("패스워드가 정상적으로 변경되었습니다.");
                         $('#passwordChangeModal').modal('hide');
-                    }else {
-                     alert("시스템 내부에서 오류가 발생하였습니다.")
+                    } else {
+                        alert("시스템 내부에서 오류가 발생하였습니다.")
                     }
                 },
                 error: function () {
@@ -242,7 +253,6 @@
 
         }
     }
-
 
 
     function checkPassword() {
