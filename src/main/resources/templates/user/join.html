@@ -8,7 +8,28 @@
 <body>
 <header id="header" class="fixed-top d-flex align-items-center  header-transparent"
         th:replace="~{user/fragments :: copy}"></header>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<span id="guide" style="color:#999;display:none"></span>
 
+<script>
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                document.getElementById('postCode').value = data.zonecode;
+                document.getElementById("address").value = roadAddr;
+            }
+        }).open();
+    }
+</script>
 <section id="about" class="about" style="margin-top:100px;">
     <div class="container">
 
@@ -18,34 +39,56 @@
         <div class="mt-5">
             <h2 class="mb-4">회원가입</h2>
             <form id="register_form" th:action="@{/register}" method="post">
+                <input type="hidden" id="idCheck" value=""/>
                 <div class="row">
                     <div class="col-md-6 mb-4">
                         <div id="resultArea" class="mt-4"></div>
-                        <label for="userId" class="form-label">아이디</label>
+                        <label for="userId" class="form-label required-label">아이디</label>
                         <div class="d-flex" style="height: 38px; white-space: nowrap;"> <!-- 입력란과 버튼을 가로로 정렬 -->
                             <input type="text" class="form-control me-2" id="userId" name="userId" />
+                            <span id="userIdError" class="text-danger"></span>
                             <button type="button" class="btn btn-primary" onclick="checkDuplicate()">아이디 중복</button>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">이메일</label>
+                    <label for="userName" class="form-label required-label">이름</label>
+                    <span id="userNameError" class="text-danger"></span>
+                    <input type="text" class="form-control" id="userName" name="userName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label required-label">이메일</label>
+                    <span id="emailError" class="text-danger"></span>
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="mb-3">
-                    <label for="phoneNumber" class="form-label">휴대폰</label>
+                    <label for="phoneNumber" class="form-label required-label">휴대폰</label>
+                    <span id="phoneNumberError" class="text-danger"></span>
                     <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber">
+                </div>
+                <div class="md-6 mb-4">
+                    <label for="postCode" class="form-label">우편번호</label>
+                    <div class="d-flex" style="height: 38px; white-space: nowrap;">
+                        <input type="text" class="form-control me-2" id="postCode" name="postCode"/>
+                        <button type="button" class="btn btn-primary" onclick="execDaumPostcode()">우편번호 찾기</button>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">주소</label>
-                    <input type="text" class="form-control" id="address" name="address">
+                    <input type="text" class="form-control" id="address" name="address"/>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">패스워드</label>
+                    <label for="detailAddress" class="form-label">상세주소</label>
+                    <input type="text" class="form-control" id="detailAddress" name="detailAddress"/>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label required-label">패스워드</label>
+                    <span id="passwordError" class="text-danger"></span>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <div class="mb-3">
-                    <label for="confirm_password" class="form-label">패스워드 확인</label>
+                    <label for="confirm_password" class="form-label required-label">패스워드 확인</label>
+                    <span id="confirmPasswordError" class="text-danger"></span>
                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                 </div>
                 <button type="button" class="btn btn-primary" onclick="register()">가입하기</button>
@@ -57,28 +100,70 @@
 </section>
 
 <footer th:replace="~{user/fragments :: footer-script}"></footer>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
     function validationCheck() {
-        if ($("#userId").val() === "") {
-            alert("중복확인을 해주시기 바랍니다.");
+        const userId = $("#userId");
+        const userName = $("#userName");
+        const email = $("#email");
+        const phoneNumber = $("#phoneNumber");
+        const password = $("#password");
+        const confirm_password = $("#confirm_password");
+        const idCheck = $("#idCheck");
+
+        if(idCheck.val() === "" || idCheck.val() === "false"){
+            alert("아이디 중복확인을 진행해주세요.");
             return false;
         }
-        if ($("#email").val() === "") {
-            alert("이메일 값을 적어주세요.");
+        if (userId.val() === "") {
+            $("#userIdError").text("아이디를 입력하세요.");
+            userId.focus();
             return false;
+        } else {
+            $("#userIdError").text("");
         }
-        if ($("#phoneNumber").val() === "") {
-            alert("휴대폰을 적어주세요.");
+
+        if (userName.val() === "") {
+            $("#userNameError").text("이름을 입력하세요.");
+            userName.focus();
             return false;
+        } else {
+            $("#userNameError").text("");
         }
-        if ($("#password").val() === "") {
-            alert("패스워드를 적어주세요.");
+
+        if (email.val() === "") {
+            $("#emailError").text("이메일을 입력하세요.");
+            email.focus();
             return false;
+        } else {
+            $("#emailError").text("");
         }
-        if ($("#password").val() !== $("#confirm_password").val()) {
-            alert("패스워드와 패스워드 확인이 동일하지 않습니다.");
+
+        if (phoneNumber.val() === "") {
+            $("#phoneNumberError").text("휴대폰 번호를 입력하세요.");
+            phoneNumber.focus();
             return false;
+        } else {
+            $("#phoneNumberError").text("");
         }
+
+        if (password.val() === "") {
+            $("#passwordError").text("패스워드를 입력하세요.");
+            password.focus();
+            return false;
+        } else {
+            $("#passwordError").text("");
+        }
+
+        if (password.val() !== confirm_password.val()) {
+            $("#confirmPasswordError").text("패스워드와 패스워드 확인이 일치하지 않습니다.");
+            confirm_password.focus();
+            return false;
+        } else {
+            $("#confirmPasswordError").text("");
+        }
+
         return true;
     }
 
@@ -90,24 +175,32 @@
 
     function checkDuplicate() {
         var username = $("#userId").val();
-        var isDuplicate = false;
+        if (username === "") {
+            $("#userIdError").text("아이디를 입력하세요.");
+            userId.focus();
+            return false;
+        }
         $.ajax({
             url: '[[@{/checkId}]]',
             data: { username: username }, // 데이터를 객체로 감싸서 전송
             success: function (result) {
-                if (result === true) isDuplicate = true;
+                var resultArea = $("#resultArea");
+                var idCheck = $("#idCheck");
+                if (result) {
+                    resultArea.html('<div class="alert alert-danger" role="alert">중복된 아이디가 있습니다.</div>');
+                    idCheck.val("true");
+                } else {
+                    resultArea.html('<div class="alert alert-success" role="alert">중복된 아이디가 없습니다.</div>');
+                    idCheck.val("false");
+                }
             },
             error: function () {
                 alert("서버 요청 중 오류가 발생했습니다.");
             }
         });
-        var resultArea = $("#resultArea");
-        if (isDuplicate) {
-            resultArea.html('<div class="alert alert-danger" role="alert">중복된 아이디가 있습니다.</div>');
-        } else {
-            resultArea.html('<div class="alert alert-success" role="alert">중복된 아이디가 없습니다.</div>');
-        }
     }
+
+
 </script>
 </body>
 </html>

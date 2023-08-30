@@ -98,6 +98,8 @@
         <li><a class="nav-link nav-link" href="#">고객센터</a></li>
         <li th:if="${session.loginUser == null or session.loginUser == ''}"><a class="nav-link" th:href="@{/login}">로그인</a></li>
         <li th:if="${session.loginUser != null}"><a class="nav-link" th:href="@{/logout}">로그아웃</a></li>
+        <li th:if="${session.loginUser != null}"><a class="nav-link" th:href="@{/mypage}">마이페이지</a></li>
+
 
 
       </ul>
@@ -144,6 +146,8 @@
 
     <!-- Template Main JS File -->
     <script src="/assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 
   </footer><!-- End Footer -->

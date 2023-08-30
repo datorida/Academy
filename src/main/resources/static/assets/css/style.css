@@ -6,6 +6,10 @@
 * License: https://bootstrapmade.com/license/
 */
 
+.required-label::before {
+  content: "* ";
+  color: red;
+}
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/

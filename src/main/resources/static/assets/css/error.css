@@ -1,0 +1,53 @@
+/* 에러 페이지 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.error-container {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 50px auto;
+    max-width: 400px;
+}
+
+h1 {
+    color: #ff0000;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.status {
+    font-size: 18px;
+}
+
+.error {
+    font-size: 18px;
+    color: #ff0000;
+    margin-top: 5px;
+}
+
+.message {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #0056b3;
+}

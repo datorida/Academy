@@ -2,17 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.academy.mapper.UserMapper">
     <select id="checkOverlapId" parameterType="String" resultType="Integer">
-        SELECT COUNT(*) FROM user WHERE user_id = #{user_id}
+        SELECT COUNT(*) FROM user WHERE user_id = #{userId}
     </select>
 
     <insert id="insert" parameterType="User">
         INSERT INTO USER
-        (user_id, password, phone_number, address, email)
-        VALUES(#{userId}, #{password}, #{phoneNumber}, #{address}, #{email})
+        (user_id, password, phone_number, address, email, user_name, post_code, detail_address)
+        VALUES(#{userId}, #{password}, #{phoneNumber}, #{address}, #{email}, #{userName}, #{postCode}, #{detailAddress})
     </insert>
     <select id="loginCheck" parameterType="User" resultType="User">
-        SELECT user_id, password, phone_number, address, email
+        SELECT user_code AS userCode, user_id AS userId, password, phone_number AS phoneNumber, address, email,
+        user_name AS userName, post_code AS postCode, detail_address AS detailAddress
         FROM USER
         WHERE user_id = #{userId} AND password = #{password}
     </select>
+    <select id="checkPassword" parameterType="User" resultType="Integer">
+        SELECT COUNT(*) FROM user WHERE user_code = #{userCode} AND password = #{password}
+    </select>
+    <update id="updatePassword" parameterType="User">
+        UPDATE USER
+        SET password = #{password}
+        WHERE user_code = #{userCode}
+    </update>
+    <update id="updateInfo" parameterType="User">
+        UPDATE USER
+        SET user_name = #{userName}, email = #{email}, phone_number = #{phoneNumber}, address = #{address}, post_code =
+        #{postCode}, detail_address = #{detailAddress}
+        WHERE user_code = #{userCode}
+    </update>
 </mapper>

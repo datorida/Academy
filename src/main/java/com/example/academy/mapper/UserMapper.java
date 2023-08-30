@@ -12,12 +12,22 @@ import java.util.List;
 @Repository
 public interface UserMapper extends MyMapper<Integer, User> {
     void insert(User user) throws Exception;
+
     void delete(Integer integer) throws Exception;
+
     void update(User user) throws Exception;
+
     User select(Integer integer) throws Exception;
+
     List<User> selectAll() throws Exception;
 
     Integer checkOverlapId(String id) throws Exception;
 
     User loginCheck(User user) throws Exception;
+
+    Integer checkPassword(User user) throws Exception;
+
+    void updatePassword(User user) throws Exception;
+
+    void updateInfo(User user) throws Exception;
 }
