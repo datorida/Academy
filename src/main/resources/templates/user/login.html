@@ -6,9 +6,10 @@
 </head>
 
 <body>
-<header id="header" class="fixed-top d-flex align-items-center  header-transparent" th:replace="~{user/fragments :: copy}"></header>
+<header id="header" class="fixed-top d-flex align-items-center  header-transparent"
+        th:replace="~{user/fragments :: copy}"></header>
 <script>
-    function login(){
+    function login() {
         $("#login_form").submit();
     }
 </script>
@@ -20,7 +21,7 @@
         </div>
 
 
-        <form id="login_form" th:action="@{/loginOk}" method="post">
+        <form id="login_form" th:action="@{/loginOk}" method="post" data-aos="fade-up">
             <div th:if="${msg}" class="alert alert-danger">
                 <span th:text="${msg}"></span>
             </div>
@@ -33,9 +34,10 @@
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
         </form>
-
-        <a href="javascript:login();" style="color: #1a1d20">로그인</a>
-        <a th:href="@{/join}" style="color: #1a1d20">회원가입</a>
+        <div data-aos="fade-up">
+            <a href="javascript:login();" style="color: #1a1d20">로그인</a>
+            <a th:href="@{/join}" style="color: #1a1d20">회원가입</a>
+        </div>
     </div>
 </section>
 

@@ -1,5 +1,6 @@
 package com.example.academy.user;
 
+import com.example.academy.dto.Permissions;
 import com.example.academy.dto.User;
 import com.example.academy.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -23,7 +24,8 @@ public class UserController {
     }
 
     @RequestMapping("/join")
-    public String join() {
+    public String join(Model model) {
+        model.addAttribute("permissions", "10");
         return "user/join";
     }
 
@@ -43,9 +45,9 @@ public class UserController {
     }
 
     @RequestMapping("/register")
-    public String register(@ModelAttribute User user) throws Exception {
+    public String register(@ModelAttribute User user, @ModelAttribute Permissions permissions) throws Exception {
 
-        userService.register(user);
+//        userService.register(user);
         return "redirect:/";
     }
 
