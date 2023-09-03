@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.academy.mapper.CourseMapper">
+    <select id="selectAll" resultType="Course">
+        SELECT * FROM course
+    </select>
+
+    <select id="getCategoryNameBycategoryId" resultType="String">
+        SELECT categoryName
+        FROM category
+        WHERE categoryId = #{categoryId}
+    </select>
+</mapper>
