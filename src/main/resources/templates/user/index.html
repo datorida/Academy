@@ -9,13 +9,16 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+
   <!-- Favicons -->
   <link href="/assets/img/favicon.png" rel="icon">
   <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Phudu:wght@500;600;700&display=swap" rel="stylesheet">
   <!-- Vendor CSS Files -->
   <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
@@ -25,6 +28,13 @@
   <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Bootstrap JS -->
+
+
+  <!-- jQuery (Bootstrap의 JavaScript 요구 사항) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 
   <!-- Template Main CSS File -->
   <link href="/assets/css/style.css" rel="stylesheet">
@@ -38,420 +48,432 @@
 
 
 
-<!-- ======= Hero Section ======= -->
-<section id="hero">
-  <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+<!-- ======= slide ======= -->
+<section id="hero" class="d-flex flex-column justify-content-end align-items-center">
+  <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
 
-    <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
-    <div class="carousel-inner" role="listbox">
 
+    <div th:each="banner, iterStat :${banners}">
 
       <!-- Slide 1 -->
-      <div class="carousel-item active" style="background-image: url(assets/img/slide/slide-1.jpg)">
-        <div class="carousel-container">
-          <div class="container">
-            <h2 class="animated fadeInDown">Welcome to <span>Hidayah</span></h2>
-            <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-            <a href="#about" class="btn-get-started animated fadeInUp scrollto">Read More</a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Slide 2 -->
-      <div class="carousel-item" style="background-image: url(assets/img/slide/slide-2.jpg)">
+      <div th:classappend="${iterStat.index==0} ? 'carousel-item active' :'carousel-item'" >
         <div class="carousel-container">
-          <div class="container">
-            <h2 class="animated fadeInDown">Lorem Ipsum Dolor</h2>
-            <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-            <a href="#about" class="btn-get-started animated fadeInUp scrollto">Read More</a>
-          </div>
-        </div>
-      </div>
+          <img th:src="${banner.bannerUrl}" alt="Banner Image">
 
-      <!-- Slide 3 -->
-      <div class="carousel-item" style="background-image: url(assets/img/slide/slide-3.jpg)">
-        <div class="carousel-container">
-          <div class="container">
-            <h2 class="animated fadeInDown">Sequi ea ut et est quaerat</h2>
-            <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-            <a href="#about" class="btn-get-started animated fadeInUp scrollto">Read More</a>
-          </div>
         </div>
       </div>
 
     </div>
 
     <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-    </a>
-    <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-      <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+      <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
     </a>
 
+    <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
+    </a>
   </div>
 </section><!-- End Hero -->
 
 
-  <main id="main">
 
 
-    <!-- ======= 카테고리나누기======= -->
-    <section id="course" class="course_section layout_padding-bottom">
-      <div class="container">
 
-        <ul class="filters_menu">
-          <li class="active" data-filter="*">전체과정</li>
-          <li data-filter=".경영회계">경영회계</li>
-          <li data-filter=".기계설계">기계설계</li>
-          <li data-filter=".컴퓨터">컴퓨터</li>
-          <li data-filter=".디지털디자인">디지털디자인</li>
-          <li data-filter=".산업안전기사">산업안전기사</li>
-        </ul>
 
-        <div class="filters-content">
-          <div class="row grid">
-            <div th:each="course : ${courses}" th:class="'all ' + ${course.getCategoryName()} + ' col-sm-6 col-lg-4'">
-              <div class="box">
-                <div>
-                  <a th:href="@{/course/course}" class="img-box">
-                    <img th:src="${course.getMainImg()}" alt="" style="width: 100%; height: 100%;">
-                  </a>
-                  <div class="detail-box">
-                    <h5 th:text="${course.getCourseName()}">Product Name</h5>
-                    <p th:text="${course.description}">Product Info </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+<main id="main">
+
+
+  <!-- ======= 카테고리나누기======= -->
+  <section id="features" class="features">
+    <div class="container box-line" data-aos="zoom-out">
+
+      <ul class="nav nav-tabs row d-flex flex-wrap">
+
+        <li class="active nav-item col-2 aos-init aos-animate" data-filter="*">
+          <a class="nav-link show"  data-bs-toggle="tab" href="#tab-1">
+            <h4 class="d-none d-lg-block">전체과정</h4>
+          </a>
+         </li>
+        <li class="nav-item col-2 aos-init aos-animate" data-filter=".경영회계">
+          <a class="nav-link show"  data-bs-toggle="tab" href="#tab-2">
+
+            <h4 class="d-none d-lg-block">경영회계</h4>
+          </a>
+        </li>
+        <li class="nav-item col-2 aos-init aos-animate" data-filter=".기계설계">
+          <a class="nav-link show"  data-bs-toggle="tab" href="#tab-3">
+            <h4 class="d-none d-lg-block">기계설계</h4>
+          </a>
+        </li>
+        <li class="nav-item col-2 aos-init aos-animate" data-filter=".컴퓨터">
+          <a class="nav-link show"  data-bs-toggle="tab" href="#tab-4">
+            <h4 class="d-none d-lg-block">컴퓨터</h4>
+          </a>
+        </li>
+        <li class="nav-item col-2 aos-init aos-animate" data-filter=".디지털디자인">
+          <a class="nav-link show"  data-bs-toggle="tab" href="#tab-5">
+            <h4 class="d-none d-lg-block">디지털디자인</h4>
+          </a>
+        </li>
+        <li class="nav-item col-2 aos-init aos-animate" data-filter=".산업안전기사">
+          <a class="nav-link show"  data-bs-toggle="tab" href="#tab-6">
+            <h4 class="d-none d-lg-block">산업안전기사</h4>
+          </a>
+        </li>
+
+      </ul>
+
+      <div class="tab-content aos-init aos-animate" data-aos="fade-up">
+        <div class="grid course-flex">
+          <div th:each="course : ${courses}"  th:classappend="'box all ' + ${course.getCategoryName()}">
+            <a th:href="@{/course/course}" class="img-box">
+              <img th:src="${course.getMainImg()}" alt="" class="corse-size">
+            </a>
+            <h5 th:text="${course.getCourseName()}">Product Name</h5>
           </div>
-          <div class="btn-box">
-            <a href=""> View More </a>
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-
-    <!-- ======= Cta Section ======= -->
-    <section id="cta" class="cta">
-      <div class="container">
-
-        <div class="row" data-aos="zoom-out">
-          <div class="col-lg-9 text-center text-lg-start">
-            <h3>Call To Action</h3>
-            <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-          <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#">Call To Action</a>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Cta Section -->
-
-
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
-      <div class="container">
-
-        <div class="section-title" data-aos="zoom-out">
-          <h2>Portfolio</h2>
-          <p>What we've done</p>
-        </div>
-
-        <ul id="portfolio-flters" class="d-flex justify-content-end" data-aos="fade-up">
-          <li data-filter="*" class="filter-active">All</li>
-          <li data-filter=".filter-app">App</li>
-          <li data-filter=".filter-card">Card</li>
-          <li data-filter=".filter-web">Web</li>
-        </ul>
-
-        <div class="row portfolio-container" data-aos="fade-up">
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt=""></div>
-            <div class="portfolio-info">
-              <h4>App 1</h4>
-              <p>App</p>
-              <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt=""></div>
-            <div class="portfolio-info">
-              <h4>Web 3</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt=""></div>
-            <div class="portfolio-info">
-              <h4>App 2</h4>
-              <p>App</p>
-              <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt=""></div>
-            <div class="portfolio-info">
-              <h4>Card 2</h4>
-              <p>Card</p>
-              <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt=""></div>
-            <div class="portfolio-info">
-              <h4>Web 2</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt=""></div>
-            <div class="portfolio-info">
-              <h4>App 3</h4>
-              <p>App</p>
-              <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt=""></div>
-            <div class="portfolio-info">
-              <h4>Card 1</h4>
-              <p>Card</p>
-              <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt=""></div>
-            <div class="portfolio-info">
-              <h4>Card 3</h4>
-              <p>Card</p>
-              <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt=""></div>
-            <div class="portfolio-info">
-              <h4>Web 3</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
         </div>
 
       </div>
-    </section><!-- End Portfolio Section -->
+    </div>
 
-    <!-- ======= 수강후기 ======= -->
-    <section id="testimonials" class="testimonials">
-      <div class="container">
+  </section>
 
-        <div class="section-title" data-aos="zoom-out">
-          <h2>Testimonials</h2>
-          <p>What they are saying about us</p>
+
+  <!-- ======= Cta Section ======= -->
+  <section id="cta" class="cta">
+    <div class="container">
+
+      <div class="row" data-aos="zoom-out">
+        <div class="col-lg-9 text-center text-lg-start">
+          <h3>Call To Action</h3>
+          <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div class="col-lg-3 cta-btn-container text-center">
+          <a class="cta-btn align-middle" href="#">Call To Action</a>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Cta Section -->
+
+
+
+  <!-- ======= Portfolio Section ======= -->
+  <section id="portfolio" class="portfolio">
+    <div class="container">
+
+      <div class="section-title" data-aos="zoom-out">
+        <h2>Portfolio</h2>
+        <p>What we've done</p>
+      </div>
+
+      <ul id="portfolio-flters" class="d-flex justify-content-end" data-aos="fade-up">
+        <li data-filter="*" class="filter-active">All</li>
+        <li data-filter=".filter-app">App</li>
+        <li data-filter=".filter-card">Card</li>
+        <li data-filter=".filter-web">Web</li>
+      </ul>
+
+      <div class="row portfolio-container" data-aos="fade-up">
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt=""></div>
+          <div class="portfolio-info">
+            <h4>App 1</h4>
+            <p>App</p>
+            <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
         </div>
 
-        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+          <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt=""></div>
+          <div class="portfolio-info">
+            <h4>Web 3</h4>
+            <p>Web</p>
+            <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
           </div>
-          <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt=""></div>
+          <div class="portfolio-info">
+            <h4>App 2</h4>
+            <p>App</p>
+            <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+          <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt=""></div>
+          <div class="portfolio-info">
+            <h4>Card 2</h4>
+            <p>Card</p>
+            <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+          <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt=""></div>
+          <div class="portfolio-info">
+            <h4>Web 2</h4>
+            <p>Web</p>
+            <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt=""></div>
+          <div class="portfolio-info">
+            <h4>App 3</h4>
+            <p>App</p>
+            <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+          <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt=""></div>
+          <div class="portfolio-info">
+            <h4>Card 1</h4>
+            <p>Card</p>
+            <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+          <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt=""></div>
+          <div class="portfolio-info">
+            <h4>Card 3</h4>
+            <p>Card</p>
+            <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+          <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt=""></div>
+          <div class="portfolio-info">
+            <h4>Web 3</h4>
+            <p>Web</p>
+            <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
         </div>
 
       </div>
-    </section><!-- End Testimonials Section -->
 
+    </div>
+  </section><!-- End Portfolio Section -->
 
+  <!-- ======= 수강후기 ======= -->
+  <section id="testimonials" class="testimonials">
+    <div class="container">
 
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container">
+      <div class="section-title" data-aos="zoom-out">
+        <h2>Testimonials</h2>
+        <p>What they are saying about us</p>
+      </div>
 
-        <div class="section-title" data-aos="zoom-out">
-          <h2>Contact</h2>
-          <p>Contact Us</p>
+      <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+              <h3>Saul Goodman</h3>
+              <h4>Ceo &amp; Founder</h4>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+              <h3>Sara Wilsson</h3>
+              <h4>Designer</h4>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+              <h3>Jena Karlis</h3>
+              <h4>Store Owner</h4>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+              <h3>Matt Brandon</h3>
+              <h4>Freelancer</h4>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+              <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+              <h3>John Larson</h3>
+              <h4>Entrepreneur</h4>
+            </div>
+          </div><!-- End testimonial item -->
+
         </div>
+        <div class="swiper-pagination"></div>
+      </div>
 
-        <div class="row mt-5">
+    </div>
+  </section><!-- End Testimonials Section -->
 
-          <div class="col-lg-4" data-aos="fade-right">
-            <div class="info">
-              <div class="address">
-                <i class="bi bi-geo-alt"></i>
-                <h4>Location:</h4>
-                <p>상세한 주소지 들어갈 자리</p>
-              </div>
 
-              <div class="email">
-                <i class="bi bi-envelope"></i>
-                <h4>Email:</h4>
-                <p>테스트 이메일 들어갈 자리</p>
-              </div>
 
-              <div class="phone">
-                <i class="bi bi-phone"></i>
-                <h4>Call:</h4>
-                <p>상담전화번호 자리</p>
-              </div>
+  <!-- ======= Contact Section ======= -->
+  <section id="contact" class="contact">
+    <div class="container">
 
+      <div class="section-title" data-aos="zoom-out">
+        <h2>Contact</h2>
+        <p>Contact Us</p>
+      </div>
+
+      <div class="row mt-5">
+
+        <div class="col-lg-4" data-aos="fade-right">
+          <div class="info">
+            <div class="address">
+              <i class="bi bi-geo-alt"></i>
+              <h4>Location:</h4>
+              <p>상세한 주소지 들어갈 자리</p>
+            </div>
+
+            <div class="email">
+              <i class="bi bi-envelope"></i>
+              <h4>Email:</h4>
+              <p>테스트 이메일 들어갈 자리</p>
+            </div>
+
+            <div class="phone">
+              <i class="bi bi-phone"></i>
+              <h4>Call:</h4>
+              <p>상담전화번호 자리</p>
             </div>
 
           </div>
 
-          <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left">
+        </div>
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
+        <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left">
 
-          </div>
+          <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+            </div>
+            <div class="form-group mt-3">
+              <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+            </div>
+            <div class="my-3">
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your message has been sent. Thank you!</div>
+            </div>
+            <div class="text-center"><button type="submit">Send Message</button></div>
+          </form>
 
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
 
-  </main><!-- End #main -->
+    </div>
+  </section><!-- End Contact Section -->
 
+</main><!-- End #main -->
+<!-- 부트스트랩 JS 및 jQuery 추가 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener('DOMContentLoaded', function () {
 
-    $(document).ready(function () {
-      // 처음에는 전체 카테고리를 표시
-      $(".filters-content .all").show();
+    $('.carousel').carousel()
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.preventDefault();
+        // 현재 클릭한 항목 활성화
+        navItems.forEach(function (navItem) {
+          navItem.classList.remove('active');
+        });
+        item.classList.add('active');
 
-      // 카테고리 레이블 클릭 이벤트 처리
-      $(".filters_menu li").on("click", function () {
-        var filterValue = $(this).attr("data-filter");
+        const category = item.getAttribute('data-filter');
 
-        // 선택한 카테고리에 해당하는 항목 표시
-        $(".filters-content .all").hide();
-        $(filterValue).show();
-
-        // 선택된 카테고리 활성화 표시
-        $(".filters_menu li").removeClass("active");
-        $(this).addClass("active");
+        // 전체 과정인 경우 모든 항목 표시
+        if (category === '*') {
+          document.querySelectorAll('.course-flex .box').forEach(function (course) {
+            course.style.display = 'block';
+          });
+        } else {
+          // 해당 카테고리를 가진 항목만 표시, 나머지 숨김
+          document.querySelectorAll('.course-flex .box').forEach(function (course) {
+            if (course.classList.contains(category.substring(1))) {
+              course.style.display = 'block';
+            } else {
+              course.style.display = 'none';
+            }
+          });
+        }
       });
     });
-      });
-
-
+  });
 
 </script>
-<script src="/assets/js/slide.js"></script>
+
+
 
 <footer th:replace="~{user/fragments :: footer-script}"></footer>
 
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 </body>
-
 </html>

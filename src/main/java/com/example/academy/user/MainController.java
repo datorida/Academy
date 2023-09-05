@@ -30,6 +30,8 @@ public class MainController {
          System.out.print(categoryName);
          course.setCategoryName(categoryName);
         }
+
+
         model.addAttribute("courses", courses);
         model.addAttribute("banners", banners);
 
