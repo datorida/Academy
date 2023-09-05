@@ -14,14 +14,14 @@
 <script>
     function execDaumPostcode() {
         new daum.Postcode({
-            oncomplete: function(data) {
+            oncomplete: function (data) {
                 var roadAddr = data.roadAddress; // 도로명 주소 변수
                 var extraRoadAddr = ''; // 참고 항목 변수
 
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
                     extraRoadAddr += data.bname;
                 }
-                if(data.buildingName !== '' && data.apartment === 'Y'){
+                if (data.buildingName !== '' && data.apartment === 'Y') {
                     extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                 }
                 document.getElementById('postCode').value = data.zonecode;
@@ -30,22 +30,73 @@
         }).open();
     }
 </script>
-<section id="about" class="about" style="margin-top:100px;">
+<style>
+    /* 스타일링된 버튼 클래스 */
+    .styled-button {
+        background-color: rgba(42, 44, 57, 0.9); /* 배경색 */
+        color: white; /* 글자색 */
+        border: none; /* 테두리 없음 */
+        padding: 200px 20px; /* 안쪽 여백 */
+        border-radius: 5px; /* 모서리 둥글게 */
+        cursor: pointer; /* 커서 모양 변경 */
+    }
+
+    /* 버튼 호버(마우스 오버) 효과 */
+    .styled-button:hover {
+        background-color: #fc8129; /* 배경색 변경 */
+    }
+
+    .image-container img {
+        width: 150px; /* 이미지 너비 조절 */
+        border-radius: 50%; /* 이미지를 둥글게 표현 */
+        margin-bottom: 10px; /* 이미지 아래 여백 */
+    }
+
+    .roleSelection {
+        margin-top: 100px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+</style>
+<div id="role">
+<div class="col roleSelection" id="roleSelection">
+    <button class="styled-button" onclick="showRegistrationForm(10)">
+        <div class="image-container">
+            <img src="/assets/img/testimonials/testimonials-3.jpg" alt="강사 사진">
+        </div>
+        <div class="description">
+            강사 회원가입
+        </div>
+    </button>
+
+    <button class="styled-button" onclick="showRegistrationForm(20)">
+        <div class="image-container">
+            <img src="/assets/img/testimonials/testimonials-4.jpg" alt="학생 사진">
+        </div>
+        <div class="description">
+            학생 회원가입
+        </div>
+    </button>
+</div>
+</div>
+<section id="about" class="about" style="margin-top:100px; display: none ">
     <div class="container">
 
         <div class="section-title" data-aos="zoom-out">
             <h2>join</h2>
         </div>
-        <div class="mt-5">
+        <div class="mt-5" data-aos="fade-up">
             <h2 class="mb-4">회원가입</h2>
             <form id="register_form" th:action="@{/register}" method="post">
+                <input type="hidden" id="permissionsId" name="permissionsId" value=""/>
                 <input type="hidden" id="idCheck" value=""/>
                 <div class="row">
                     <div class="col-md-6 mb-4">
                         <div id="resultArea" class="mt-4"></div>
                         <label for="userId" class="form-label required-label">아이디</label>
                         <div class="d-flex" style="height: 38px; white-space: nowrap;"> <!-- 입력란과 버튼을 가로로 정렬 -->
-                            <input type="text" class="form-control me-2" id="userId" name="userId" />
+                            <input type="text" class="form-control me-2" id="userId" name="userId"/>
                             <span id="userIdError" class="text-danger"></span>
                             <button type="button" class="btn btn-primary" onclick="checkDuplicate()">아이디 중복</button>
                         </div>
@@ -92,6 +143,7 @@
                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                 </div>
                 <button type="button" class="btn btn-primary" onclick="register()">가입하기</button>
+                <button type="button" class="btn btn-primary" onclick="showRoleForm()">뒤로가기</button>
             </form>
 
         </div>
@@ -112,7 +164,7 @@
         const confirm_password = $("#confirm_password");
         const idCheck = $("#idCheck");
 
-        if(idCheck.val() === "" || idCheck.val() === "false"){
+        if (idCheck.val() === "" || idCheck.val() === "true") {
             alert("아이디 중복확인을 진행해주세요.");
             return false;
         }
@@ -182,16 +234,15 @@
         }
         $.ajax({
             url: '[[@{/checkId}]]',
-            data: { username: username }, // 데이터를 객체로 감싸서 전송
+            data: {username: username}, // 데이터를 객체로 감싸서 전송
             success: function (result) {
                 var resultArea = $("#resultArea");
-                var idCheck = $("#idCheck");
                 if (result) {
                     resultArea.html('<div class="alert alert-danger" role="alert">중복된 아이디가 있습니다.</div>');
-                    idCheck.val("true");
+                    $("#idCheck").val("true");
                 } else {
                     resultArea.html('<div class="alert alert-success" role="alert">중복된 아이디가 없습니다.</div>');
-                    idCheck.val("false");
+                    $("#idCheck").val("false");
                 }
             },
             error: function () {
@@ -200,6 +251,17 @@
         });
     }
 
+
+    function showRegistrationForm(value) {
+        document.getElementById('role').style.display = 'none';
+        document.getElementById('about').style.display = 'block';
+        $("#permissionsId").val(value);
+    }
+
+    function showRoleForm(){
+        document.getElementById('about').style.display = 'none';
+        document.getElementById('role').style.display = 'block';
+    }
 
 </script>
 </body>

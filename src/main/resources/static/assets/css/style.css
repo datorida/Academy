@@ -5,6 +5,18 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+.mypage {
+  display: flex;
+  align-items: flex-start;
+}
+.mypage .menu-bar{
+  margin-right: 100px;
+}
+
+.menu-item.selected {
+  color: #fc8129; /* 선택된 항목 텍스트 색상 */
+  font-weight: bold; /* 선택된 항목 글꼴 굵기 */
+}
 
 /*--------------------------------------------------------------
 # General
