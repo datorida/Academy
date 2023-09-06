@@ -51,10 +51,16 @@
 <!-- ======= slide ======= -->
 <section id="hero" class="d-flex flex-column justify-content-end align-items-center">
   <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
-
-
-
     <div th:each="banner, iterStat :${banners}">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+    </div>
+
+
 
       <!-- Slide 1 -->
 
@@ -435,6 +441,13 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const navItems = document.querySelectorAll('.nav-item');
+    const allCoursesNavItem = document.querySelector('.nav-item[data-filter="*"]');
+    const allCoursesTabLink = document.querySelector('.nav-link[data-bs-toggle="tab"][href="#tab-1"]'); // 전체과정 탭 링크
+
+    // "전체과정" 항목을 초기로드 시 활성화
+    allCoursesNavItem.classList.add('active');
+    allCoursesTabLink.classList.add('active');
+
     navItems.forEach(function (item) {
       item.addEventListener('click', function (e) {
         e.preventDefault();
@@ -463,6 +476,16 @@
         }
       });
     });
+
+    window.addEventListener('scroll', function () {
+      const backToTopButton = document.querySelector('.back-to-top');
+      if (window.scrollY > 100) {
+        backToTopButton.classList.add('active');
+      } else {
+        backToTopButton.classList.remove('active');
+      }
+    });
+
   });
 
 </script>
