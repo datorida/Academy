@@ -626,6 +626,24 @@ section {
   width: 100%;
 }
 
+.course-flex .box {
+  flex-basis: calc(25% - 20px); /* 한 줄에 4개 요소를 표시하기 위해 너비를 조정 */
+  margin: 10px; /* 요소 사이의 여백 조정 */
+}
+
+/* 작은 화면에서 한 줄에 2개의 과정을 표시 */
+@media (max-width: 768px) {
+  .course-flex .box {
+    flex-basis: calc(50% - 20px); /* 작은 화면에서 한 줄에 2개 표시하도록 너비 조정 */
+  }
+}
+
+/* 매우 작은 화면에서 한 줄에 1개의 과정을 표시 */
+@media (max-width: 575px) {
+  .course-flex .box {
+    flex-basis: calc(100% - 20px); /* 매우 작은 화면에서 한 줄에 1개 표시하도록 너비 조정 */
+  }
+}
 .features .nav-link:hover {
   color: #ef6603;
 }
@@ -654,10 +672,7 @@ section {
   }
 }
 
-.box {
-  max-width: 300px;
-  margin: 10px;
-}
+
 
 .corse-size {
   width: 100%;
