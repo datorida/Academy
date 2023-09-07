@@ -1,0 +1,22 @@
+<!-- attribute.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{user/fragments :: head}">
+    <title>리스트</title>
+</head>
+<body>
+
+        <div id="aboutList" class="list-group" th:fragment="list">
+            <a th:href="@{/user/about/attribute}" class="list-group-item list-group-item-action" aria-current="true">
+                인사말
+            </a>
+            <a th:href="@{/user/about/ideology}" class="list-group-item list-group-item-action">경영이념</a>
+            <a th:href="@{/user/about/history}" class="list-group-item list-group-item-action">연혁</a>
+            <a th:href="@{/user/about/teachers}" class="list-group-item list-group-item-action">교직원소개</a>
+            <a th:href="@{/user/about/directions}" class="list-group-item list-group-item-action">오시는길</a>
+        </div>
+
+
+</body>
+</html>

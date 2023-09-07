@@ -42,4 +42,7 @@ public class CourseService implements MyService<Integer, Course> {
         return courseMapper.getCategoryNameBycategoryId(categoryId);
     }
 
+    public String getSubCategoryNameBySubCategoryId(int subCategoryId) {
+        return courseMapper.getSubCategoryNameBySubCategoryId(subCategoryId);
+    }
 }

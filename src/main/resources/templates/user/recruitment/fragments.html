@@ -1,0 +1,28 @@
+<!-- attribute.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{user/fragments :: head}">
+    <title>리스트</title>
+</head>
+<body>
+
+        <div id="aboutList" class="list-group" th:fragment="list">
+            <a th:href="@{/user/recruitment/recruiting}" class="list-group-item list-group-item-action" aria-current="true">
+                모집중인과정
+            </a>
+            <a th:href="@{/user/recruitment/ongoing}" class="list-group-item list-group-item-action">진행중인과정</a>
+            <a th:href="@{/user/recruitment/annual}" class="list-group-item list-group-item-action">연간모집과정</a>
+            <div class="dropdown">
+            <a th:href="@{/user/recruitment/announcement}" class="list-group-item list-group-item-action dropdown-toggle"
+               id="subMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">국비과정 입학안내</a>
+                <div class="dropdown-menu" aria-labelledby="subMenu">
+                    <a th:href="@{/user/recruitment/training-info}" class="dropdown-item">국가기간전략훈련(실업자)</a>
+                    <a th:href="@{/user/recruitment/card-info}" class="dropdown-item">국민내일배움카드</a>
+                </div>
+            </div>
+        </div>
+
+
+</body>
+</html>

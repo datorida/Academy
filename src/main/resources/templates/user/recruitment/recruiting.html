@@ -1,0 +1,30 @@
+<!-- attribute.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{user/fragments :: head}">
+    <title>모집중인 과정 </title>
+</head>
+<body>
+<header id="header" class="fixed-top d-flex align-items-center  header-transparent" th:replace="~{user/fragments :: copy}"></header>
+
+<section class="menu-section">
+    <div class="col-md-3">
+        <div id="aboutList" th:replace="~{user/recruitment/fragments :: list}"></div>
+    </div>
+    <div class="container">
+        <div class="section-title" data-aos="zoom-out">
+            <h2>모집중인 과정</h2>
+            <p>Directions to Our Location</p>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+
+
+        </div>
+    </div>
+</section>
+<footer th:replace="~{user/fragments :: footer-script}"></footer>
+<script src="/assets/js/list.js"></script>
+</body>
+</html>

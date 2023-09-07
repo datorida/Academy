@@ -43,61 +43,71 @@
       <ul>
         <li><a class="nav-link" th:href="@{/index}">Home</a></li>
         <!-- 학원소개-->
-        <li class="dropdown nav-link"><a href="#"><span>학원소개</span> <i class="bi bi-chevron-down"></i></a>
+        <li class="dropdown nav-link"><a th:href="@{/user/about/attribute}"><span>학원소개</span><i class="bi bi-chevron-down"></i></a>
           <ul>
-            <li><a th:href="@{/user/about/about}">인사말</a></li>
-            <li><a href="#">연혁</a></li>
+            <li><a th:href="@{/user/about/attribute}">인사말</a></li>
+            <li><a th:href="@{/user/about/ideology}">경영이념</a></li>
+            <li><a th:href="@{/user/about/history}">연혁</a></li>
             <li><a th:href="@{/user/about/teachers}">강사소개</a></li>
             <li><a th:href="@{/user/about/directions}">오시는길</a></li>
           </ul>
         </li>
 
-        <!--교육과정-->
-        <li class="dropdown"><a href="#"><span>교육과정</span> <i class="bi bi-chevron-down"></i></a>
+
+        <!-- 모집교육-->
+        <li class="dropdown nav-link"><a th:href="@{/user/recruitment/recruiting}"><span>모집교육</span><i class="bi bi-chevron-down"></i></a>
           <ul>
-            <li class="dropdown"><a href="#"><span>IT/SW개발</span> <i class="bi bi-chevron-right"></i></a>
+            <li><a th:href="@{/user/recruitment/recruiting}"><span>현재모집중인과정</span></a></li>
+            <li><a th:href="@{/user/recruitment/ongoing}"><span>진행중인과정</span></a></li>
+            <li><a th:href="@{/user/recruitment/annual}"><span>연간모집과정</span></a></li>
+            <li class="dropdown"><a th:href="@{/user/recruitment/announcement}"><span>국비과정 입학안내</span><i class="bi bi-chevron-right"></i></a>
               <ul>
-                <li><a href="#">Deep Drop Down 1</a></li>
-                <li><a href="#">Deep Drop Down 2</a></li>
-                <li><a href="#">Deep Drop Down 3</a></li>
-                <li><a href="#">Deep Drop Down 4</a></li>
-                <li><a href="#">Deep Drop Down 5</a></li>
+                <li><a th:href="@{/user/recruitment/training-info}">국가기간전략훈련(실업자)</a></li>
+                <li><a th:href="@{/user/recruitment/card-info}">국민내일배움카드</a></li>
               </ul>
             </li>
+          </ul>
+        </li>
 
+        <!--교육과정-->
+        <li class="dropdown nav-link"><a th:href="@{/user/course/accounting}"><span>교육과정</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <li><a th:href="@{/user/course/accounting}"><span>경영회계</span></a></li>
+            <li><a th:href="@{/user/course/mechanical-design}" ><span>기계설계</span></a></li>
+            <li><a th:href="@{/user/course/computer}"><span>컴퓨터</span></a></li>
+            <li><a th:href="@{/user/course/digital-design}"><span>디지털디자인</span></a></li>
+            <li><a th:href="@{/user/course/safety-engineer}"><span>산업안전기사</span></a></LI>
 
-
-            <li class="dropdown"><a href="#"><span>웹디자인/퍼블러셔</span> <i class="bi bi-chevron-right"></i></a>
-              <ul>
-                <li><a href="#">Deep Drop Down 1</a></li>
-                <li><a href="#">Deep Drop Down 2</a></li>
-                <li><a href="#">Deep Drop Down 3</a></li>
-                <li><a href="#">Deep Drop Down 4</a></li>
-                <li><a href="#">Deep Drop Down 5</a></li>
-              </ul>
-            </li>
-
-
-
-            <li class="dropdown"><a href="#"><span>게임/영상</span> <i class="bi bi-chevron-right"></i></a>
-              <ul>
-                <li><a href="#">Deep Drop Down 1</a></li>
-                <li><a href="#">Deep Drop Down 2</a></li>
-                <li><a href="#">Deep Drop Down 3</a></li>
-                <li><a href="#">Deep Drop Down 4</a></li>
-                <li><a href="#">Deep Drop Down 5</a></li>
-              </ul>
-            </li>
           </ul>
         </li>
 
         <!--상담센터-->
-        <li class="dropdown nav-link"><a href="#"><span>상담센터</span> <i class="bi bi-chevron-down"></i></a>
+        <li class="dropdown nav-link"><a th:href="@{/user/counselling/online}"><span>상담센터</span><i class="bi bi-chevron-down"></i></a>
           <ul>
-            <li><a href="#">온라인상담</a></li>
-            <li><a href="#">수강료조회</a></li>
+            <li><a th:href="@{/user/counselling/online}">온라인상담</a></li>
+            <li><a th:href="@{/user/counselling/complaint}">고충상담</a></li>
+            <li><a th:href="@{/user/counselling/inquiry}">수강료조회</a></li>
+            <li><a th:href="@{/user/counselling/application}">수강신청</a></li>
           </ul>
         </li>
+
+
+
+        <!--커뮤니티-->
+        <li class="dropdown nav-link"><a href="#"><span>커뮤니티</span> <i class="bi bi-chevron-down"></i></a>
+        <ul>
+          <li><a href="#">공지사항</a></li>
+          <li><a href="#">수강후기</a></li>
+          <li><a href="#">자유게시판</a></li>
+          <li><a href="#">CAD게시판</a></li>
+          <li><a href="#">교육시설갤러리</a></li>
+          <li><a href="#">갤러리</a></li>
+
+
+        </ul>
+        </li>
+
+        <!--고객센터-->
         <li><a class="nav-link nav-link" href="#">고객센터</a></li>
         <li th:if="${session.loginUser == null or session.loginUser == ''}"><a class="nav-link" th:href="@{/login}">로그인</a></li>
         <li th:if="${session.loginUser != null}"><a class="nav-link" th:href="@{/logout}">로그아웃</a></li>

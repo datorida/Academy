@@ -1,4 +1,4 @@
-<!-- about.html -->
+<!-- attribute.html -->
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
@@ -8,9 +8,11 @@
 
 <body>
 <header id="header" class="fixed-top d-flex align-items-center  header-transparent" th:replace="~{user/fragments :: copy}"></header>
-<section id="about" class="about"  style="margin-top: 100px;">
+<section id="about" class="about menu-section">
+    <div class="col-md-3">
+        <div id="aboutList" th:replace="~{user/about/fragments :: list}"></div>
+    </div>
     <div class="container">
-
         <div class="section-title" data-aos="zoom-out">
             <h2>About</h2>
             <p>Who we are</p>
@@ -37,11 +39,11 @@
                 <a href="#" class="btn-learn-more">Learn More</a>
             </div>
         </div>
+        </div>
 
-    </div>
 </section><!-- End About Section -->
-
 <footer th:replace="~{user/fragments :: footer-script}"></footer>
 
+<script src="/assets/js/list.js"></script>
 </body>
 </html>

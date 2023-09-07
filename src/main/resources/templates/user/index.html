@@ -28,6 +28,7 @@
   <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
   <!-- Bootstrap JS -->
 
 
@@ -51,7 +52,7 @@
 <!-- ======= slide ======= -->
 <section id="hero" class="d-flex flex-column justify-content-end align-items-center">
   <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
-    <div th:each="banner, iterStat :${banners}">
+
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
       <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -63,7 +64,7 @@
 
 
       <!-- Slide 1 -->
-
+    <div th:each="banner, iterStat :${banners}">
       <div th:classappend="${iterStat.index==0} ? 'carousel-item active' :'carousel-item'" >
         <div class="carousel-container">
           <img th:src="${banner.bannerUrl}" alt="Banner Image">
@@ -94,9 +95,9 @@
 
   <!-- ======= 카테고리나누기======= -->
   <section id="features" class="features">
-    <div class="container box-line" data-aos="zoom-out">
-
-      <ul class="nav nav-tabs row d-flex flex-wrap">
+    <div class="container">
+    <div class="box-line"   data-aos="fade-up">
+      <ul class="nav nav-tabs row d-flex flex-wrap" >
 
         <li class="active nav-item col-2 aos-init aos-animate" data-filter="*">
           <a class="nav-link show"  data-bs-toggle="tab" href="#tab-1">
@@ -132,19 +133,29 @@
 
       </ul>
 
-      <div class="tab-content aos-init aos-animate" data-aos="fade-up">
-        <div class="grid course-flex">
-          <div th:each="course : ${courses}"  th:classappend="'box all ' + ${course.getCategoryName()}">
+      <div class="grid course-flex">
+        <div th:each="course : ${courses}"  th:classappend="'box all ' + ${course.getCategoryName()}">
+          <div class="course-card">
             <a th:href="@{/course/course}" class="img-box">
               <img th:src="${course.getMainImg()}" alt="" class="corse-size">
             </a>
             <h5 th:text="${course.getCourseName()}">Product Name</h5>
+
+            <div class="course-info">
+              <!-- 추가 정보를 표시할 요소 -->
+              <p class="course-description" th:text="${course.getSubCategoryName()}">Course Description</p>
+              <p class="course-date" th:text="${#dates.format(course.getStartDate(), 'yyyy-MM-dd')} + ' ~ ' + ${#dates.format(course.getEndDate(), 'yyyy-MM-dd')}">CourseDate</p>
+              <!-- 자세히 보기와 수강 신청 버튼 -->
+              <div class="buttons">
+                <a href="#" class="btn  custom-btn btn-16">상세보기</a>
+                <a href="#" class="btn  custom-btn btn-14">수강신청</a>
+              </div>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
-
+    </div>
   </section>
 
 
@@ -154,7 +165,7 @@
 
       <div class="row" data-aos="zoom-out">
         <div class="col-lg-9 text-center text-lg-start">
-          <h3>Call To Action</h3>
+          <h3>☎ 054.749.5949</h3>
           <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
         <div class="col-lg-3 cta-btn-container text-center">
@@ -486,6 +497,18 @@
       }
     });
 
+    $(document).ready(function () {
+      $(".course-card").hover(
+              function () {
+                // 마우스 호버 시 course-info를 표시
+                $(this).find(".course-info").fadeIn();
+              },
+              function () {
+                // 마우스 떠날 때 course-info를 숨김
+                $(this).find(".course-info").fadeOut();
+              }
+      );
+    });
   });
 
 </script>

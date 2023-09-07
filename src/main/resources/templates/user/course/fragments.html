@@ -1,0 +1,22 @@
+<!-- attribute.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{user/fragments :: head}">
+    <title>리스트</title>
+</head>
+<body>
+
+        <div id="aboutList" class="list-group" th:fragment="list">
+            <a th:href="@{/user/course/accounting}" class="list-group-item list-group-item-action" aria-current="true">
+             경영회계
+            </a>
+            <a th:href="@{/user/course/mechanical-design}" class="list-group-item list-group-item-action">기계설계</a>
+            <a th:href="@{/user/course/computer}" class="list-group-item list-group-item-action">컴퓨터</a>
+            <a th:href="@{/user/course/digital-design}" class="list-group-item list-group-item-action">디지털디자인</a>
+            <a th:href="@{/user/course/safety-engineer}" class="list-group-item list-group-item-action">산업안전기사</a>
+        </div>
+
+
+</body>
+</html>

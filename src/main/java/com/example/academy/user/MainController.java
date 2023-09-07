@@ -26,9 +26,11 @@ public class MainController {
         List<Course> courses= courseService.get();
         for(Course course : courses){
             int categoryId=course.getCategoryId();
+            int subCategoryId = course.getSubCategoryId();
+         String subCategoryName=courseService.getSubCategoryNameBySubCategoryId(subCategoryId);
          String categoryName= courseService.getCategoryNameBycategoryId(categoryId);
-         System.out.print(categoryName);
          course.setCategoryName(categoryName);
+         course.setSubCategoryName(subCategoryName);
         }
 
 

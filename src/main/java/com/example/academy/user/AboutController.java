@@ -2,7 +2,6 @@ package com.example.academy.user;
 
 import com.example.academy.dto.Teachers;
 import com.example.academy.service.TeachersService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +15,32 @@ import java.util.List;
 public class AboutController {
     @Autowired
     TeachersService teachersService;
-    @GetMapping("/about")
+
+    //인사말
+    @GetMapping("/attribute")
     public String about(Model model){
 
-        return "user/about/about";
+        return "user/about/attribute";
     }
 
+
+    //경영이념
+    @GetMapping("/ideology")
+    public String ideology(Model model){
+
+        return "user/about/ideology";
+    }
+
+
+    //연혁
+    @GetMapping("/history")
+    public String history(Model model){
+
+        return "user/about/history";
+    }
+
+
+    //교직원소개
     @GetMapping("/teachers")
     public String teachers(Model model) throws Exception {
         List<Teachers> teachers =  teachersService.get();
@@ -29,9 +48,13 @@ public class AboutController {
         return "user/about/teachers";
     }
 
+
+    //지도
     @GetMapping("/directions")
     public String directions(){
         System.out.println("카카오api테스트");
         return "user/about/directions";
     }
+
+
 }

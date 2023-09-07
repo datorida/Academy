@@ -18,4 +18,6 @@ public interface CourseMapper extends MyMapper<Integer, Course> {
 
 
     String getCategoryNameBycategoryId(int categoryId);
+
+    String getSubCategoryNameBySubCategoryId(int subCategoryId);
 }
