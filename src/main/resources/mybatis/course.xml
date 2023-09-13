@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.academy.mapper.CourseMapper">
     <select id="selectAll" resultType="Course">
-        SELECT course_id as courseId, category_id as categoryId, sub_category_id as subCategoryId, course_name as courseName, description, duration,
+        SELECT course_id as courseId, category_id as categoryId, sub_category_id as subCategoryId, course_name as
+        courseName, description, duration,
         start_date as startDate, end_date as endDate, course_status as courseStatus, main_img as mainImg, detail_img as
         detailImg
         FROM COURSE
 
     </select>
 
-    <select id="getCategoryNameBycategoryId" resultType="String">
+    <select id="getCategoryNameByCategoryId" resultType="String">
         SELECT category_name as categoryName
         FROM category
         WHERE category_id = #{categoryId}
@@ -20,4 +21,35 @@
         FROM subCategory
         WHERE sub_category_id = #{subCategoryId}
     </select>
+
+    <select id="categoryIdByCourseList" parameterType="Integer" resultType="Course">
+        SELECT course_id AS courseId, category_id AS categoryId, course_name AS courseName,
+        description, duration, start_date AS startDate, end_date AS endDate, course_status AS courseStatus,
+        main_img AS mainImg, detail_img AS detailImg
+        FROM COURSE
+        WHERE category_id = #{categoryId}
+    </select>
+
+    <select id="select" parameterType="Integer" resultType="Course">
+        SELECT course_id AS courseId, category_id AS categoryId, course_name AS courseName,
+        description, duration, start_date AS startDate, end_date AS endDate, course_status AS courseStatus,
+        main_img AS mainImg, detail_img AS detailImg
+        FROM COURSE
+        WHERE course_id = #{courseId}
+    </select>
+
+    <update id="update" parameterType="Course">
+        UPDATE COURSE SET
+            category_id=#{categoryId},
+            sub_category_id=#{subCategoryId},
+            course_name=#{courseName},
+            description=#{description},
+            duration=#{duration},
+            start_date=#{startDate},
+            end_date=#{endDate},
+            course_status=#{courseStatus},
+            main_img=#{mainImg},
+            detail_img=#{detailImg}
+        WHERE course_id = #{courseId}
+    </update>
 </mapper>

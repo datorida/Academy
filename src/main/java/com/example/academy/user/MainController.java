@@ -28,7 +28,7 @@ public class MainController {
             int categoryId=course.getCategoryId();
             int subCategoryId = course.getSubCategoryId();
          String subCategoryName=courseService.getSubCategoryNameBySubCategoryId(subCategoryId);
-         String categoryName= courseService.getCategoryNameBycategoryId(categoryId);
+         String categoryName= courseService.getCategoryNameByCategoryId(categoryId);
          course.setCategoryName(categoryName);
          course.setSubCategoryName(subCategoryName);
         }
@@ -39,5 +39,7 @@ public class MainController {
 
         return "user/index";
     }
+
+
 
 }

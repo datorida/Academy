@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
+<head th:replace="~{admin/index :: head}"></head>
+<meta charset="UTF-8">
+<title>Title</title>
+<body class="sb-nav-fixed">
+<nav th:replace="~{admin/header :: headerNav}"></nav>
+<div id="layoutSidenav">
+    <div th:replace="~{admin/sidenav :: layoutSidenav}"></div>
+    <div id="layoutSidenav_content" style="margin:20px">
+        <h2 th:text="| 생성|"></h2>
+        <form id="courseForm" name="courseForm" method="post" action="" enctype="multipart/form-data">
+            <input type="hidden" id="courseId" name="courseId" th:value="${course.getCourseId}"/>
+            <input type="hidden" id="categoryId" name="categoryId" th:value="${course.getCategoryId}"/>
+            <input type="hidden" id="editor" name="editor"/>
+
+            <div class="mb-3">
+                <label for="courseName" class="form-label required-label">과정 이름:</label>
+                <input type="text" class="form-control" id="courseName" name="courseName"
+                       th:value="${course.getCourseName}"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label required-label">과정 설명:</label>
+                <textarea class="form-control" id="description" name="description" rows="10"
+                          th:text="${course.getDescription}"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="duration" class="form-label required-label">과정 기간:</label>
+                <input type="text" class="form-control" id="duration" name="duration" th:value="${course.getDuration}"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="startDate" class="form-label required-label">시작 날짜:</label>
+                <input type="date" class="form-control" id="startDate" name="startDate"
+                       th:value="${#dates.format(course.getStartDate, 'yyyy-MM-dd')}"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="endDate" class="form-label required-label">종료 날짜:</label>
+                <input type="date" class="form-control" id="endDate" name="endDate"
+                       th:value="${#dates.format(course.getEndDate, 'yyyy-MM-dd')}"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="courseStatus" class="form-label required-label">상태:</label>
+                <input type="text" class="form-control" id="courseStatus" name="courseStatus"
+                       th:value="${course.getCourseStatus}"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="mainImg" class="form-label required-label">사진저장위치:</label>
+                <input type="text" class="form-control" id="mainImg" name="mainImg" th:value="${course.getMainImg}"/>
+                <div class="image-container">
+                    <img th:src="|../../../${course.getMainImg()}|" alt="" width="200px;">
+                </div>
+                <label for="files" class="form-label">이미지 업로드:</label>
+                <input type="file" class="form-control" id="files" name="files" />
+            </div>
+            <button type="submit" id="action_button" class="btn btn-primary"></button>
+        </form>
+    </div>
+</div>
+
+<!--
+미리보기 만들예정
+-->
+
+</body>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        smartEditor();
+        var courseId = $("#courseId").val();
+        if (courseId !== "0") {
+            $("#courseForm").attr("action", "/admin/course/editSave");
+            $("#action_button").text("과정 수정");
+        } else {
+            $("#courseForm").attr("action", "/admin/course/save");
+            $("#action_button").text("과정 생성");
+        }
+    });
+
+    let oEditors = []
+    smartEditor = function () {
+        console.log()
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef: oEditors,
+            elPlaceHolder: "description",
+            sSkinURI: "/assets/smartEditor2/SmartEditor2Skin.html",
+            fCreator: "createSEditor2"
+        })
+    }
+
+    $("#action_button").click(function () {
+        oEditors.getById["description"].exec("UPDATE_CONTENTS_FIELD", [])
+    })
+
+</script>
+
+
+</html>

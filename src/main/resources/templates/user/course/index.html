@@ -1,0 +1,55 @@
+<!-- attribute.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{user/fragments :: head}">
+    <title>경영회계</title>
+</head>
+
+<body>
+<header id="header" class="fixed-top d-flex align-items-center  header-transparent"
+        th:replace="~{user/fragments :: copy}"></header>
+<section id="about" class="menu-section">
+    <div class="col-md-3">
+        <div id="aboutList" class="list-group">
+            <a th:each="category :${categoryList}" th:href="|/user/course/menu/${category.getCategoryId}|"
+               class="list-group-item list-group-item-action" aria-current="true">
+                [[${category.getCategoryName()}]]
+            </a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="section-title" data-aos="zoom-out">
+            <h2 th:text="${ctObject.getCategoryName}"></h2>
+            <p>Management Accounting</p>
+        </div>
+
+        <div class="row content" data-aos="fade-up">
+            <div th:each="course : ${courseList}"  th:classappend="'box all ' + ${course.getCategoryName()}">
+                <div class="course-card">
+                    <a th:href="@{/course/course}" class="img-box">
+                        <img th:src="|../../../${course.getMainImg()}|" alt="">
+                    </a>
+                    <h5 th:text="${course.getCourseName()}">Product Name</h5>
+
+                    <div class="course-info">
+                        <!-- 추가 정보를 표시할 요소 -->
+                        <p class="course-description" th:text="${course.getSubCategoryName()}">Course Description</p>
+                        <p class="course-date" th:text="${#dates.format(course.getStartDate(), 'yyyy-MM-dd')} + ' ~ ' + ${#dates.format(course.getEndDate(), 'yyyy-MM-dd')}">CourseDate</p>
+                        <!-- 자세히 보기와 수강 신청 버튼 -->
+                        <div class="buttons">
+                            <a href="#" class="btn  custom-btn btn-16">상세보기</a>
+                            <a href="#" class="btn  custom-btn btn-14">수강신청</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<footer th:replace="~{user/fragments :: footer-script}"></footer>
+
+<script src="/assets/js/list.js"></script>
+</body>
+</html>

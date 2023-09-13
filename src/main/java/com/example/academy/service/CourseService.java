@@ -25,12 +25,12 @@ public class CourseService implements MyService<Integer, Course> {
 
     @Override
     public void modify(Course course) throws Exception {
-
+        courseMapper.update(course);
     }
 
     @Override
-    public Course get(Integer integer) throws Exception {
-        return null;
+    public Course get(Integer id) throws Exception {
+        return courseMapper.select(id);
     }
 
     @Override
@@ -38,11 +38,16 @@ public class CourseService implements MyService<Integer, Course> {
         return courseMapper.selectAll();
     }
 
-    public String getCategoryNameBycategoryId(int categoryId) {
-        return courseMapper.getCategoryNameBycategoryId(categoryId);
+    public String getCategoryNameByCategoryId(int categoryId) {
+        return courseMapper.getCategoryNameByCategoryId(categoryId);
+    }
+
+    public List<Course> categoryIdByCourseList(int categoryId) throws Exception {
+        return courseMapper.categoryIdByCourseList(categoryId);
     }
 
     public String getSubCategoryNameBySubCategoryId(int subCategoryId) {
         return courseMapper.getSubCategoryNameBySubCategoryId(subCategoryId);
     }
+
 }

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
+<head th:replace="~{admin/index :: head}"></head>
+<meta charset="UTF-8">
+<title>Title</title>
+<body class="sb-nav-fixed">
+<nav th:replace="~{admin/header :: headerNav}"></nav>
+<div id="layoutSidenav">
+    <div th:replace="~{admin/sidenav :: layoutSidenav}"></div>
+    <div id="layoutSidenav_content" style="margin:20px">
+        <h2 th:text="|${category != null ? category.getCategoryName: course != null ? course.getCategoryName() : 0} 생성|"></h2>
+        <form id="courseForm" name="courseForm" method="post" action="" enctype="multipart/form-data">
+            <input type="hidden" id="courseId" name="courseId" th:value="${course != null ? course.getCourseId : 0}" />
+            <input type="hidden" id="categoryId" name="categoryId" th:value="${category != null ? category.getCategoryId() : 0}" />
+            <input type="hidden" id="editor" name="editor"/>
+
+            <div class="mb-3">
+                <label for="courseName" class="form-label required-label">과정 이름:</label>
+                <input type="text" class="form-control" id="courseName" name="courseName" th:value="${courseName}" />
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label required-label">과정 설명:</label>
+                <!--<textarea class="form-control" id="description" name="description" rows="4"></textarea>-->
+                <textarea class="form-control" id="description" name="description" rows="10"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="duration" class="form-label required-label">과정 기간:</label>
+                <input type="text" class="form-control" id="duration" name="duration" />
+            </div>
+
+            <div class="mb-3">
+                <label for="startDate" class="form-label required-label">시작 날짜:</label>
+                <input type="date" class="form-control" id="startDate" name="startDate" th:value="${startDate}" />
+            </div>
+
+            <div class="mb-3">
+                <label for="endDate" class="form-label required-label">종료 날짜:</label>
+                <input type="date" class="form-control" id="endDate" name="endDate" th:value="${endDate}" />
+            </div>
+
+            <div class="mb-3">
+                <label for="courseStatus" class="form-label required-label">상태:</label>
+                <input type="text" class="form-control" id="courseStatus" name="courseStatus" />
+            </div>
+
+            <div class="mb-3">
+                <label for="mainImg" class="form-label required-label">메인 이미지 경로:</label>
+                <input type="text" class="form-control" id="mainImg" name="mainImg" />
+            </div>
+
+            <div class="mb-3">
+                <label for="detailImg" class="form-label required-label">상세 이미지 경로:</label>
+                <input type="text" class="form-control" id="detailImg" name="detailImg" />
+            </div>
+
+            <button type="submit" id="action_button" class="btn btn-primary"></button>
+        </form>
+    </div>
+</div>
+
+</body>
+
+<script>
+    $(document).ready(function () {
+        var courseId = $("#courseId").val();
+        if (courseId !== "0") {
+            $("#courseForm").attr("action", "/admin/course/edit" + courseId);
+            $("#action_button").text("과정 수정");
+        } else {
+            $("#courseForm").attr("action","/admin/course/save");
+            $("#action_button").text("과정 생성");
+        }
+    });
+
+    // smartEditor2
+    let oEditors = []
+    smartEditor= function (){
+        console.log()
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef: oEditors,
+            elPlaceHolder : "description",
+            sSkinURI: "/assets/smartEditor2/SmartEditor2Skin.html",
+            fCreator: "createSEditor2"
+        })
+    }
+    $(document).ready(function (){
+        smartEditor();
+    })
+
+    $("#action_button").click(function (){
+        oEditors.getById["description"].exec("UPDATE_CONTENTS_FIELD", [])
+        console.log($("#description").val());
+    })
+
+</script>
+
+
+</html>

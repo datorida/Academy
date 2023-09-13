@@ -16,8 +16,9 @@ public interface CourseMapper extends MyMapper<Integer, Course> {
     Course select(Integer integer) throws Exception;
     List<Course> selectAll() throws Exception;
 
+    String getCategoryNameByCategoryId(int categoryId);
 
-    String getCategoryNameBycategoryId(int categoryId);
+    List<Course> categoryIdByCourseList(int categoryId) throws Exception;
 
     String getSubCategoryNameBySubCategoryId(int subCategoryId);
 }

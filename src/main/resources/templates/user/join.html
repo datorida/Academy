@@ -87,7 +87,7 @@
             <h2>join</h2>
         </div>
         <div class="mt-5" data-aos="fade-up">
-            <h2 class="mb-4">회원가입</h2>
+            <h2 class="mb-4" id="title"></h2>
             <form id="register_form" th:action="@{/register}" method="post">
                 <input type="hidden" id="permissionsId" name="permissionsId" value=""/>
                 <input type="hidden" id="idCheck" value=""/>
@@ -256,6 +256,7 @@
         document.getElementById('role').style.display = 'none';
         document.getElementById('about').style.display = 'block';
         $("#permissionsId").val(value);
+        $("#title").text(value === 20 ? "학생 회원가입" : "강사 회원가입");
     }
 
     function showRoleForm(){

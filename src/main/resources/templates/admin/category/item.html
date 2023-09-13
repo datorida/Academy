@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
+<head th:replace="~{admin/index :: head}"></head>
+<style>
+    /* 이미지 컨테이너에 대한 스타일 */
+    .image-container {
+        position: relative;
+        width: 30px; /* 원하는 이미지 컨테이너 크기로 조절하세요 */
+        height: 50px; /* 원하는 이미지 컨테이너 크기로 조절하세요 */
+    }
+
+    /* 이미지에 대한 스타일 */
+    .profile-img {
+        width: 100%; /* 이미지를 컨테이너 크기로 맞춤 */
+        height: auto; /* 이미지의 가로세로 비율을 유지 */
+    }
+
+    /* 미리보기 이미지에 대한 스타일 */
+    #image-preview {
+        position: absolute;
+        display: none;
+        z-index: 999;
+        background-color: #fff;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    #previewed-image {
+        max-width: 300px; /* 미리보기 이미지 최대 너비 */
+        max-height: 300px; /* 미리보기 이미지 최대 높이 */
+    }
+</style>
+<body class="sb-nav-fixed">
+<nav th:replace="~{admin/header :: headerNav}"></nav>
+<div id="layoutSidenav">
+    <div th:replace="~{admin/sidenav :: layoutSidenav}"></div>
+    <div id="layoutSidenav_content" style="margin:20px;">
+        <table class="table table-striped">
+            <h2 th:text="${category}"></h2>
+            <thead>
+            <tr>
+                <th style="width: 12%;">이미지</th>
+                <th style="width: 15%;">이름</th>
+                <th style="width: 10%;">상태</th>
+
+                <th style="width: auto;">과정기간</th>
+                <th style="width: 15%;">시작날짜</th>
+                <th style="width: 15%;">종료날짜</th>
+                <th style="width: auto;">상세보기</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course : ${courseList}">
+                <th>
+                    <div class="image-container">
+                        <img th:src="|../../../${course.getMainImg()}|" alt="" class="profile-img" onmouseover="previewImage(this)">
+                    </div>
+                </th>
+                <td th:text="${course.getCourseName}"></td>
+                <td th:text="${course.getCourseStatus}"></td>
+
+                <td th:text="${course.getDuration}"></td>
+                <td th:text="${#dates.format(course.getStartDate, 'yyyy-MM-dd')}"></td>
+                <td th:text="${#dates.format(course.getEndDate, 'yyyy-MM-dd')}"></td>
+                <td><a th:href="|/admin/course/edit/${course.getCourseId()}|" class="btn btn-primary btn-sm">상세보기</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <a th:href="|/admin/addSubcategory/Item${cateId}|" class="btn btn-primary btn-sm">추가</a>
+            <a href="#" class="btn btn-primary btn-sm">삭제</a>
+        </div>
+        <div id="image-preview" class="hidden">
+            <img id="previewed-image" src="" alt="">
+        </div>
+    </div>
+</div>
+<script>
+    function previewImage(img) {
+        const previewedImage = document.getElementById("previewed-image");
+        previewedImage.src = img.src;
+        const imagePreview = document.getElementById("image-preview");
+        imagePreview.style.display = "block";
+        imagePreview.addEventListener("mouseout", function() {
+            resetImage();
+        });
+    }
+
+    function resetImage() {
+        const imagePreview = document.getElementById("image-preview");
+        imagePreview.style.display = "none";
+    }
+
+</script>
+</body>
+</html>
