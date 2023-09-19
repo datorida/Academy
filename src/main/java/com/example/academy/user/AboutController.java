@@ -1,6 +1,8 @@
 package com.example.academy.user;
 
+import com.example.academy.dto.Image;
 import com.example.academy.dto.Teachers;
+import com.example.academy.service.ImageService;
 import com.example.academy.service.TeachersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ public class AboutController {
     @Autowired
     TeachersService teachersService;
 
+    @Autowired
+    ImageService imageService;
     //인사말
     @GetMapping("/attribute")
     public String about(Model model){
@@ -34,8 +38,10 @@ public class AboutController {
 
     //연혁
     @GetMapping("/history")
-    public String history(Model model){
-
+    public String history(Model model) throws Exception {
+        List<Image> images = imageService.get();
+        model.addAttribute("images",images);
+        System.out.println(images);
         return "user/about/history";
     }
 

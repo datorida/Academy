@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.academy.mapper.BoardMapper">
+    <select id="findAll" resultType="Board">
+        SELECT
+        board_id AS boardId,
+        title,
+        author,
+        created_at AS createdAt,
+        view_count AS viewCount,
+        board_type AS boardType
+        FROM Board
+        WHERE delete_yn = 0
+        ORDER BY id DESC
+        LIMIT #{recordSize} OFFSET #{offset};
+    </select>
+
+    <select id="getBoardByBoardId" resultType="Board">
+        SELECT*FROM BOARD WHERE board_id =#{boardId}
+    </select>
+
+    <insert id="save" parameterType="Board">
+        INSERT INTO BOARD (title, author, created_at, view_count, content, board_password, secret, board_type)
+        VALUES (#{title}, #{author}, NOW(), #{viewCount}, #{content}, #{boardPassword}, #{secret}, #{boardType})
+    </insert>
+
+
+    <select id="searchBoardList" resultType="Board">
+        SELECT
+        board_id AS boardId,
+        title,
+        author,
+        created_at AS createdAt,
+        view_count AS viewCount,
+        content,
+        board_type AS boardType,
+        board_password AS boardPassword
+        FROM Board WHERE board_id =#{boardId}
+    </select>
+
+    <!-- 조회수-->
+
+    <update id="saveViewCount">
+        UPDATE BOARD
+        SET view_count = #{viewCount}
+        WHERE board_id = #{boardId}
+    </update>
+
+    <!-- 보드(Board) 테이블의 모든 데이터를 삭제하는 쿼리 -->
+    <delete id="deleteAll">
+        DELETE FROM BOARD;
+    </delete>
+
+    <update id="saveEditedContent" parameterType="Board">
+        UPDATE BOARD
+        SET content = #{content}
+        WHERE board_id = #{boardId}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM BOARD WHERE board_id=#{boardId}
+    </delete>
+
+
+</mapper>

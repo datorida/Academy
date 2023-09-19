@@ -1,5 +1,6 @@
 package com.example.academy.mapper;
 
+import com.example.academy.dto.AcademyMap;
 import com.example.academy.dto.Banner;
 import com.example.academy.frame.MyMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,4 +16,5 @@ public interface BannerMapper extends MyMapper<Integer, Banner> {
     void update(Banner banner) throws Exception;
     Banner select(Integer integer) throws Exception;
 
+    List<Banner> selectAll() throws Exception;
 }

@@ -1,0 +1,171 @@
+<!-- attribute.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{user/fragments :: head}">
+    <title>온라인</title>
+</head>
+
+<body>
+<header id="header" class="fixed-top d-flex align-items-center  header-transparent"
+        th:replace="~{user/fragments :: copy}"></header>
+<section id="about" class="menu-section">
+    <div class="col-md-3">
+        <div id="aboutList" th:replace="~{user/counseling/fragments :: list}"></div>
+    </div>
+    <div class="container">
+        <div class="section-title" data-aos="zoom-out">
+            <h2>온라인상담</h2>
+            <p>Online counseling</p>
+        </div>
+
+        <div class="row content" data-aos="fade-up">
+            <!-- 검색 시작 -->
+            <div>총 건수: <span th:text="${boards.totalElements}"></span></div>
+            <form class="form-inline d-flex justify-content-end align-items-center mb-3" method="GET" th:action="@{/user/counseling/online/list}">
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="searchText" name="searchText" placeholder="검색어를 입력하세요" th:value="${param.searchText}">
+                </div>
+                <button type="submit" class="btn btn-light mb-2">검색</button>
+            </form>
+            <!-- 검색 종료 -->
+
+            <table class="list-table table table-bordered">
+                <thead>
+                <tr>
+                    <th class="col-md-5">제목</th>
+                    <th class="col-md-2">작성자</th>
+                    <th class="col-md-2">등록일</th>
+                    <th class="col-md-1">조회수</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*@thymesVar id="list" type=""*/-->
+                <tr th:each="board : ${boards}">
+                    <td th:if="${board != null}" th:text="${board.boardId}" style="display:none;" id="boardIdCell"></td>
+                    <td>
+                        <span th:if="${board.secret}" class="text-danger secret-link" data-board-id="${board.boardId}">🔒</span>
+                        <a th:if="${not board.secret}" th:href="@{/user/counseling/online/boardView(boardId=${board.boardId})}">
+                            <span th:text="${board.title}"></span>
+                        </a>
+                        <span th:if="${board.secret}" class="secret-title" data-board-id="${board.boardId}" style="cursor: pointer;" th:text="${board.title}"></span>
+                    </td>
+                    <td th:text="${board.author}"></td>
+                    <td>
+                        <span th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd')}"></span>
+                        <span style="font-size: 14px;" th:text="${#temporals.format(board.createdAt, 'HH:mm:ss')}"></span>
+                    </td>
+
+                    <td th:text="${board.viewCount}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${1==boards.pageable.pageNumber+1} ? 'disabled'">
+                        <a class="page-link" href="#"
+                           th:href="@{/user/counseling/online/list(page=${boards.pageable.pageNumber -1},searchText=${param.searchText})}"
+                           tabindex="-1" aria-disabled="true"> ⇦ </a>
+                    </li>
+                    <li class="page-item" th:classappend="${i == boards.pageable.pageNumber + 1} ? 'disabled'" th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                        <a class="page-link" href="#" th:href="@{/user/counseling/online/list(page=${i - 1},searchText=${param.searchText})}" th:text="${i}">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="${boards.totalPages == boards.pageable.pageNumber + 1} ? 'disabled'">
+                        <a class="page-link" href="#" th:href="@{/user/counseling/online/list(page=${boards.pageable.pageNumber + 1},searchText=${param.searchText})}"> ⇨ </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="text-right">
+                <a type="button" class="btn btn-secondary" th:href="@{/user/counseling/online/write}">질문 등록하기</a>
+            </div>
+        </div>
+
+        <!-- 비밀번호 확인 모달 -->
+        <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="passwordModalLabel">비밀번호 확인</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="passwordInput" class="form-label">비밀번호를 입력하세요:</label>
+                            <input type="password" class="form-control" id="passwordInput">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-primary" id="passwordConfirmButton">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- End About Section -->
+
+
+<script>
+
+    // 클릭한 게시물의 비밀번호 확인 모달 열기
+    $(document).on("click", ".secret-link", function () {
+        var boardId = $(this).data("board-id");
+        $("#boardIdInput").val(boardId);
+        $("#passwordInput").val(""); // 모달이 열릴 때마다 입력 필드 초기화
+        $("#passwordModal").modal("show");
+    });
+
+    // 비밀글의 타이틀 클릭 시 모달 열리도록 이벤트 추가
+    $(document).on("click", ".secret-title", function () {
+        var boardId = $(this).data("board-id");
+        $("#boardIdInput").val(boardId);
+        $("#passwordInput").val(""); // 모달이 열릴 때마다 입력 필드 초기화
+        $("#passwordModal").modal("show");
+
+        setTimeout(function (){
+            $("#passwordInput").focus();
+        } ,100);
+    });
+
+    $("#passwordInput").on("keyup",function (event){
+        if(event.key==='Enter'){
+            passwordConfirmButton();
+        }
+    });
+    function passwordConfirmButton(){
+            document.getElementById('passwordConfirmButton').click();
+    }
+
+    // 모달에서 비밀번호 확인
+    $("#passwordConfirmButton").click(function () {
+        var boardId=document.getElementById("boardIdCell").textContent;
+        var enterPassword = $("#passwordInput").val();
+
+        // 서버로 비밀번호 확인 요청을 보냄
+        fetch('/online/checkPassword?boardId=' + boardId + '&enteredPassword=' +enterPassword, {
+            method: 'POST',
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "success") {
+                    $("#passwordModal").modal("hide"); // 모달 닫기
+                    alert("비밀번호 확인!");
+                    window.location.href = '/user/counseling/online/boardView?boardId=' + boardId; // 게시물 상세 페이지로 이동
+                } else {
+                    alert("비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
+                    $("#passwordInput").val(""); // 입력 필드 초기화
+                    $("#passwordInput").focus();
+                }
+            });
+    });
+
+</script>
+
+
+<footer th:replace="~{user/fragments :: footer-script}"></footer>
+<script src="/assets/js/list.js"></script>
+</body>
+</html>

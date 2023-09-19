@@ -3,7 +3,6 @@ package com.example.academy.service;
 import com.example.academy.dto.User;
 import com.example.academy.frame.MyService;
 import com.example.academy.mapper.UserMapper;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

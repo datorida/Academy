@@ -1,0 +1,75 @@
+
+<!-- attribute.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{user/fragments :: head}">
+    <title>게시글 상세페이지</title>
+</head>
+
+<body>
+<header id="header" class="fixed-top d-flex align-items-center  header-transparent" th:replace="~{user/fragments :: copy}"></header>
+<section id="about" class="menu-section">
+    <div class="col-md-3">
+        <div id="aboutList" th:replace="~{user/counseling/fragments :: list}"></div>
+    </div>
+    <div class="container">
+        <div class="section-title" data-aos="zoom-out">
+            <h2>검색결과</h2>
+            <p>Search Result</p>
+        </div>
+
+        <div class="row content" data-aos="fade-up">
+
+
+            <!-- 페이징처리 시작 -->
+            <div th:if="${!results.isEmpty()}">
+                <ul class="paging-button pagination justify-content-center">
+                    <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                        <a class="page-link" th:href="@{|/online/search?page=${paging.number-1}&searchType=${searchType}&searchKeyword=${searchKeyword}&author=${author}|}">
+                            <span>이전</span>
+                        </a>
+                    </li>
+                    <li th:each="page: ${#numbers.sequence(1, paging.totalPages-1)}"
+                        th:if="${page >= paging.number-2 and page <= paging.number+2}"
+                        th:classappend="${page == paging.number} ? 'active'"
+                        class="page-item">
+                        <a th:text="${page}" class="page-link" th:href="@{|/online/search?page=${page}&searchType=${searchType}&searchKeyword=${searchKeyword}&author=${author}|}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                        <a class="page-link" th:href="@{|/online/search?page=${paging.number+1}&searchType=${searchType}&searchKeyword=${searchKeyword}&author=${author}|}">
+                            <span>다음</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 페이징처리 끝 -->
+
+
+            <table>
+                <tr>
+                    <th class="col-md-1">번호</th>
+                    <th class="col-md-6">제목</th>
+                    <th class="col-md-2">작성자</th>
+                    <th class="col-md-2">등록일</th>
+                    <th class="col-md-2">조회수</th>
+                </tr>
+
+                <tr th:each="result : ${result}">
+                    <td th:text="${result.boardId}"></td>
+                    <td th:text="${result.title}"></td>
+                    <td th:text="${result.author}"></td>
+                    <td th:text="${result.createdAt}"></td>
+                    <td th:text="${result.viewCount}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section><!-- End About Section -->
+<script>
+s
+</script>
+<footer th:replace="~{user/fragments :: footer-script}"></footer>
+<script src="/assets/js/list.js"></script>
+</body>
+</html>

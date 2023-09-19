@@ -1,7 +1,6 @@
 package com.example.academy.service;
 
 import com.example.academy.dto.Banner;
-import com.example.academy.dto.Banner;
 import com.example.academy.frame.MyService;
 import com.example.academy.mapper.BannerMapper;
 import org.springframework.beans.factory.annotation.Autowired;

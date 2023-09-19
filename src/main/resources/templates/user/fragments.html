@@ -24,6 +24,9 @@
   <link th:href="@{/assets/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
   <link th:href="@{/assets/css/style.css}" rel="stylesheet">
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 
 </head>
 
@@ -82,12 +85,12 @@
         </li>
 
         <!--상담센터-->
-        <li class="dropdown nav-link"><a th:href="@{/user/counselling/online}"><span>상담센터</span><i class="bi bi-chevron-down"></i></a>
+        <li class="dropdown nav-link"><a th:href="@{/user/counseling/online/list}"><span>상담센터</span><i class="bi bi-chevron-down"></i></a>
           <ul>
-            <li><a th:href="@{/user/counselling/online}">온라인상담</a></li>
-            <li><a th:href="@{/user/counselling/complaint}">고충상담</a></li>
-            <li><a th:href="@{/user/counselling/inquiry}">수강료조회</a></li>
-            <li><a th:href="@{/user/counselling/application}">수강신청</a></li>
+            <li><a th:href="@{/user/counseling/online/list}">온라인상담</a></li>
+            <li><a th:href="@{/user/counseling/complaint/list}">고충상담</a></li>
+            <li><a th:href="@{/user/counseling/inquiry}">수강료조회</a></li>
+            <li><a th:href="@{/user/counseling/application}">수강신청</a></li>
           </ul>
         </li>
 
@@ -113,7 +116,7 @@
         <li th:if="${session.loginUser != null}"><a class="nav-link" th:href="@{/logout}">로그아웃</a></li>
         <li th:if="${session.loginUser != null}"><a class="nav-link" th:href="@{/mypage}">마이페이지</a></li>
 
-
+        <li><a th:href="@{/admin}">인트라넷</a></li>
 
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>

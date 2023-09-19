@@ -1,5 +1,6 @@
 package com.example.academy.service;
 
+import com.example.academy.dto.Board;
 import com.example.academy.dto.Teachers;
 import com.example.academy.frame.MyService;
 import com.example.academy.mapper.TeachersMapper;
