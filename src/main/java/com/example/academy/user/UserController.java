@@ -1,13 +1,14 @@
 package com.example.academy.user;
 
-import com.example.academy.dto.Permissions;
 import com.example.academy.dto.User;
 import com.example.academy.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -18,13 +19,30 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private PasswordEncoder pwEncoder;
     @RequestMapping("/login")
     public String login() {
         return "user/login";
     }
 
+    //회원가입 서비스
+    @PostMapping("/register")
+    public String joinService(User user) throws Exception {
+        String rawPw="";
+        String encodePw="";
+
+        rawPw=user.getPassword();
+        encodePw=pwEncoder.encode(rawPw);
+        user.setPassword(encodePw);
+
+        userService.register(user);
+        return "user/login";
+
+    }
+    //회원가입 창
     @RequestMapping("/join")
-    public String join(Model model) {
+    public String join(Model model){
         model.addAttribute("permissions", "10");
         return "user/join";
     }
@@ -42,13 +60,6 @@ public class UserController {
         }
         model.addAttribute("msg", msg);
         return returnUrl;
-    }
-
-    @RequestMapping("/register")
-    public String register(@ModelAttribute User user, @ModelAttribute Permissions permissions) throws Exception {
-
-//        userService.register(user);
-        return "redirect:/";
     }
 
     @RequestMapping("/logout")

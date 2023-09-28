@@ -15,4 +15,8 @@ public interface UserPermissionsMapper extends MyMapper<Integer, UserPermissions
     void update(UserPermissions userPermissions) throws Exception;
     UserPermissions select(Integer integer) throws Exception;
     List<UserPermissions> selectAll() throws Exception;
+
+    UserPermissions findByAdminId(String adminId);
+
+    UserPermissions save(UserPermissions userPermissions);
 }

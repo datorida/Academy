@@ -8,11 +8,7 @@
 <body>
 <header id="header" class="fixed-top d-flex align-items-center  header-transparent"
         th:replace="~{user/fragments :: copy}"></header>
-<script>
-    function login() {
-        $("#login_form").submit();
-    }
-</script>
+
 <section id="about" class="about" style="margin-top:100px;">
     <div class="container">
 
@@ -20,7 +16,7 @@
             <h2>관리자 로그인</h2>
         </div>
 
-        <form id="login_form" th:action="@{/admin/login}" method="post" data-aos="fade-up">
+        <form id="login_form" method="post" th:action="@{/loginForm}" data-aos="fade-up">
             <div th:if="${msg}" class="alert alert-danger">
                 <span th:text="${msg}"></span>
             </div>
@@ -32,10 +28,9 @@
                 <label for="adminPassword" class="form-label">관리자 패스워드</label>
                 <input type="password" class="form-control" id="adminPassword" name="adminPassword" required>
             </div>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <button type="submit">로그인</button>
         </form>
-        <div data-aos="fade-up">
-            <a href="javascript:login();" style="color: #1a1d20">로그인</a>
-        </div>
     </div>
 </section>
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.academy.mapper.UserPermissionsMapper">
+    <select id="selectAll" resultType="UserPermissions">
+        SELECT id, user_code as userCode, admin_id as adminId, admin_password as adminPassword, role
+        FROM UserPermissions
+    </select>
+    <select id="findByAdminId" parameterType="String" resultType="com.example.academy.dto.UserPermissions">
+        SELECT user_code AS userCode, admin_id AS adminId, admin_password AS adminPassword, role FROM UserPermissions WHERE admin_id = #{adminId}
+    </select>
+
+</mapper>
